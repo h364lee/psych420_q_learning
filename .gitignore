@@ -15,3 +15,7 @@ Thumbs.db        # Windows
 
 # environment variables
 .env
+
+# Quarto build output
+reinforcement_learning_files/
+reinforcement_learning.html

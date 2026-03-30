@@ -1,0 +1,208 @@
+---
+title: "Reinforcement Learning"
+author: "Arshia Mago, Ashlee King, Caleb Lee, Catherine Cao, Christina Fan"
+format:
+  revealjs:
+    theme: [default, custom.scss]
+    slide-number: false
+    transition: slide
+    width: 1920
+    height: 1080
+    mathjax: true
+title-slide-attributes:
+  data-background-color: "#1a3a4a"
+---
+
+## Understanding Reinforcement Learning
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+<div style="margin-top: 200px; font-size: 1.3em;">
+
+::: {.fragment .fade-in fragment-index=1}
+1. Autonomous agents learn through **trial and error to make decisions** by interacting with their environment.
+:::
+
+::: {.fragment .fade-in fragment-index=2}
+2. Utilize positive and negative feedback to **maximize cumulative rewards.**
+:::
+
+::: {.fragment .fade-in fragment-index=3}
+3. Q-Learning
+:::
+
+</div>
+
+:::
+
+::: {.column width="50%"}
+![](images/rl.png){width="100%"}
+:::
+
+::::
+
+## Key Terms
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+<div style="margin-top: 100px; margin-left: 250px; font-size: 1.3em;">
+
+**Entities**
+
+- Agent
+- Environment
+
+**Functions**
+
+- Actions (*A*)
+- State (*S*)
+- Reward (*R*)
+- Policy (off-policy)
+
+</div>
+
+:::
+
+::: {.column width="50%"}
+![](images/rl2.png){width="100%"}
+:::
+
+::::
+
+---
+
+## &nbsp;
+
+<div style="position: relative; width: 100%; height: 100%;">
+<img class="fragment fade-in" data-fragment-index="1" src="images/timeline-1.png" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;">
+<img class="fragment fade-in" data-fragment-index="2" src="images/timeline-2.png" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;">
+<img class="fragment fade-in" data-fragment-index="3" src="images/timeline-3.png" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;">
+<img class="fragment fade-in" data-fragment-index="4" src="images/timeline-4.png" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;">
+<img class="fragment fade-in" data-fragment-index="5" src="images/timeline-5.png" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;">
+<img class="fragment fade-in" data-fragment-index="6" src="images/timeline-6.png" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;">
+<img class="fragment fade-in" data-fragment-index="7" src="images/timeline-7.png" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;">
+<img class="fragment fade-in" data-fragment-index="8" src="images/timeline-8.png" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;">
+</div>
+---
+
+## {data-background-color="#ffffff"}
+
+::: {style="text-align: center; padding-top: 50px;"}
+
+![](images/rl_tree.jpg){width="85%"}
+
+:::
+
+
+## Markov Decision Processes {.smaller}
+
+::: {style="text-align: center; margin-top: 50px;"}
+![](images/rl4.png){width="60%"}
+:::
+
+
+
+## Bellman Equation
+
+::: {style="text-align: center; margin-top: 40px; opacity: 0.5;"}
+
+$$V(s) = \max_a [R(s, a) + \gamma V(s')]$$
+
+:::
+
+<br>
+
+<div style="text-align: center; font-size: 2.2em; margin-top: 20px;">
+<span style="border: 3px solid red; padding: 10px 15px; display: inline-block;">$Q(s,a)$</span> $=$ <span style="border: 3px solid red; padding: 10px 15px; display: inline-block;">$R(s,a)$</span> $+$ <span style="border: 3px solid red; padding: 10px 15px; display: inline-block;">$\gamma \max_a Q(s', a)$</span>
+</div>
+
+<div style="display: flex; justify-content: flex-start; margin-top: 35px; margin-left: 268px; color: red; font-size: 0.85em; text-align: center;">
+<div style="width: 260px; margin-right: 135px;">How good it is to take action a in state s</div>
+<div style="width: 260px; margin-right: 300px;">Reward for taking that action at that state</div>
+<div style="width: 260px;">Maximum possible Q-value in the next state</div>
+</div>
+
+<br>
+
+::: {style="text-align: center;"}
+
+Discount rate parameter: $0 \leq \gamma \leq 1$
+
+:::
+
+
+## {data-background-image="images/q_learning.png" data-background-size="contain"}
+## &nbsp;
+
+:::: {.columns}
+
+::: {.column width="55%"}
+
+<div style="margin-top: 100px;">
+![](images/ql1.jpg){width="100%"}
+</div>
+
+:::
+
+::: {.column width="45%"}
+::: {style="display: flex; align-items: center; height: 700px; justify-content: center;"}
+
+<div style="font-size: 1.2 em; width: 100%;">
+
+<div style="text-align: center; font-weight: bold; font-size: 0.2 em; margin-bottom: 5px;">actions</div>
+
+| **states** | $a_0$ | $a_1$ | $a_2$ | $\cdots$ |
+|:---:|:---:|:---:|:---:|:---:|
+| $S_0$ | $Q(s_0, a_0)$ | $Q(s_0, a_1)$ | $Q(s_0, a_2)$ | $\cdots$ |
+| $S_1$ | $Q(s_1, a_0)$ | $Q(s_1, a_1)$ | $Q(s_1, a_2)$ | $\cdots$ |
+| $S_2$ | $Q(s_2, a_0)$ | $Q(s_2, a_1)$ | $Q(s_2, a_2)$ | $\cdots$ |
+| $\vdots$ | $\vdots$ | $\vdots$ | $\vdots$ | $\vdots$ |
+
+</div>
+
+:::
+:::
+
+::::
+
+
+---
+
+## {data-background-image="images/info1.jpg" data-background-size="contain"}
+
+::: {.notes}
+Need to learn without labeled data — In many real-world problems, there is no correct answer provided. The agent must learn from rewards or penalties instead of explicit supervision.
+Need to handle sequential decision-making — Actions influence future states and future rewards. Decisions cannot be evaluated in isolation.
+Need to operate in unknown or partially known environments — The agent does not have access to full transition dynamics. Learning must occur through interaction with the environment.
+Need to balance exploration vs exploitation — The agent must try new actions (exploration) while using known good actions (exploitation). This trade-off is central to effective learning.
+:::
+
+## {data-background-image="images/info2.jpg" data-background-size="contain"}
+
+::: {.notes}
+Provides a framework for learning through interaction — Closely models how humans and animals learn from consequences. Connects with principles from psychology and neuroscience.
+Enables autonomous decision-making systems — Systems can act, learn, and improve without explicit programming. Applicable to robotics, recommendation systems, and control systems.
+Introduces foundational concepts in AI — Value functions (how good a state/action is), Policies (decision rules), Reward signals (objective of learning), Trial-and-error learning.
+:::
+
+
+## {data-background-image="images/applications.png" data-background-size="contain"}
+
+
+## Methods {data-background-color="#ffffff"}
+
+
+## Tutorial {data-background-color="#ffffff"}
+
+
+## Results {data-background-color="#ffffff"}
+
+
+## Discussion {data-background-color="#ffffff"}
+
+
+## Conclusion {data-background-color="#ffffff"}
