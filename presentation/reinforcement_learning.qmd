@@ -192,17 +192,119 @@ Introduces foundational concepts in AI — Value functions (how good a state/act
 
 ## {data-background-image="images/applications.png" data-background-size="contain"}
 
+## Tutorial: Maze Setup
+```{.python code-line-numbers="|9-16|4-7"}
+import numpy as np
+import matplotlib.pyplot as plt
 
-## Methods {data-background-color="#ffffff"}
+# 0 = free cell
+# 1 = wall
+# 2 = hole (terminal, negative reward)
+# 3 = goal (terminal, positive reward)
 
+maze = np.array([
+    [0, 0, 1, 0, 0, 0],
+    [0, 2, 0, 0, 1, 0],
+    [0, 0, 0, 2, 0, 0],
+    [0, 1, 1, 0, 1, 0],
+    [0, 0, 0, 0, 0, 0],
+    [2, 0, 1, 0, 0, 3]
+])
 
-## Tutorial {data-background-color="#ffffff"}
+ROWS, COLS = maze.shape
+START = (0, 0)
+GOAL  = (5, 5)
+```
 
+## Tutorial: Initialize Q-Table & Parameters
+```{.python code-line-numbers="|1-2|4-5"}
+# shape: (rows, cols, 4 actions)
+Q = np.zeros((ROWS, COLS, 4))
 
-## Results {data-background-color="#ffffff"}
+# action directions: 0=up, 1=down, 2=left, 3=right
+DIRS = [(-1,0), (1,0), (0,-1), (0,1)]
 
+alpha   = 0.5   # learning rate
+gamma   = 0.9   # discount factor
+epsilon = 0.2   # exploration rate
+episodes = 500
+```
 
-## Discussion {data-background-color="#ffffff"}
+## Tutorial: Step Function
+```{.python code-line-numbers="|2-4|5|7-9|12|13-20"}
 
+def step(state, action):
+    r, c = state
+    dr, dc = DIRS[action]
+    nr, nc = r + dr, c + dc
 
-## Conclusion {data-background-color="#ffffff"}
+    # if move goes out of bounds or into wall, stay still
+    if nr < 0 or nr >= ROWS or nc < 0 or nc >= COLS or maze[nr, nc] == 1:
+        nr, nc = r, c
+
+    # assign reward based on what the next cell is
+    tile = maze[nr, nc]
+    if tile == 3:
+        reward = 10       # reached goal
+    elif tile == 2:
+        reward = -1       # fell in hole
+    else:
+        reward = -0.04    # small penalty encourages efficiency
+
+    done = (tile == 3 or tile == 2)
+    return (nr, nc), reward, done
+```
+
+## Tutorial: Choose Action Function
+```{.python code-line-numbers="|3-4|5-6"}
+def choose_action(state):
+    r, c = state
+    if np.random.random() < epsilon:
+        return np.random.randint(4)           # random action
+    else:
+        return np.argmax(Q[r, c])             # best known action
+```
+
+## Tutorial: Training Loop
+```{.python code-line-numbers="|4-6|11-13|15-16|18-21|22-26"}
+steps_per_episode = []
+deltas_over_time  = []
+
+for episode in range(episodes):
+    state = START
+    steps = 0
+
+    while True:
+        r, c = state
+
+        action = choose_action(state)
+        next_state, reward, done = step(state, action)
+        nr, nc = next_state
+
+        # compute TD error
+        delta = reward + gamma * np.max(Q[nr, nc]) - Q[r, c, action]
+
+        # update Q table
+        Q[r, c, action] += alpha * delta
+
+        deltas_over_time.append(delta)
+        steps += 1
+        state = next_state
+
+        if done or steps > 500:
+            break
+
+    steps_per_episode.append(steps)
+```
+
+## Results: Number of Steps Taken and TD error over time
+
+::: {style="text-align: center;"}
+![](images/graph1.png){width="65%"}
+:::
+
+## Results: Final Q-Table and Learned Policy
+
+::: {style="text-align: center;"}
+![](images/graph2.png){width="100%"}
+:::
