@@ -308,3 +308,89 @@ for episode in range(episodes):
 ::: {style="text-align: center;"}
 ![](images/graph2.png){width="100%"}
 :::
+
+## Application: D1/D2 Receptors 
+
+::: {style="text-align: center;"}
+![](images/graph3.png){width=80%}
+:::
+
+::: {style="text-align: center;"}
+![](images/graph4.png){width=80%}
+:::
+
+::: {style="position: absolute; bottom: 10px; left: 20px; font-size: 0.45em; color: #aaa;"}
+Frank et al. (2007) doi:10.1073/pnas.0706111104 &nbsp;|&nbsp; Samson et al. (2010) doi:10.1007/s11571-010-9109-x
+:::
+
+## Stable Baselines3: DQN on CartPole
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+**Same algorithm — neural network instead of Q-table**
+
+- Q-table replaced by a multilayer perceptron
+- Same TD error: $\delta = r + \gamma \cdot \max_{a'} Q(s',a') - Q(s,a)$
+- Two key additions: **experience replay** and **target network**
+```python
+from stable_baselines3 import DQN
+import gymnasium as gym
+
+env   = gym.make("CartPole-v1")
+model = DQN("MlpPolicy", env, verbose=1, gamma=0.99)
+model.learn(total_timesteps=100_000)
+```
+
+:::
+
+::: {.column width="50%"}
+::: {style="text-align: center; margin-top: 150px;"}
+![](images/cartpole.gif){width=90%}
+:::
+:::
+
+::::
+
+---
+
+## NeuroGym: RL on Cognitive Tasks
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+**Same RL framework — environment is a real cognitive task**
+
+- Perceptual Decision Making task — the same paradigm run in monkey and human experiments
+- Trial structure: fixation → stimulus → decision → reward
+- Trained agent behavior can be compared directly to neural recordings
+```python
+import neurogym as ngym
+
+env = ngym.make('GoNogo-v0', dt=100)
+env = env.unwrapped
+fig = ngym.utils.plot_env(env, num_trials=3)
+```
+
+:::
+
+::: {.column width="50%"}
+::: {style="text-align: center; margin-top: 40px;"}
+![](images/neurogym_task.png){width=90%}
+:::
+:::
+
+::::
+
+::: {style="position: absolute; bottom: 10px; left: 20px; font-size: 0.45em; color: #aaa;"}
+Molano-Mazon et al. (2022) doi:10.7554/eLife.71104 &nbsp;|&nbsp; Mnih et al. (2015) doi:10.1038/nature14236
+:::
+
+## {data-background-color="#1a3a4a"}
+
+::: {style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 80vh; color: white; text-align: center;"}
+<div style="font-size: 2.5em; font-weight: 600; margin-bottom: 0.3em;">Thank You</div>
+<div style="font-size: 1.5em; opacity: 0.7;">Questions?</div>
+:::
