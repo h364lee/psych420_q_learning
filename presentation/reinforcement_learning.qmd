@@ -323,17 +323,48 @@ for episode in range(episodes):
 Frank et al. (2007) doi:10.1073/pnas.0706111104 &nbsp;|&nbsp; Samson et al. (2010) doi:10.1007/s11571-010-9109-x
 :::
 
+## Gymnasium
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+**A standardized toolkit for developing and comparing RL algorithms**
+
+- Pre-built environments 
+- Same interface for every environment: `reset()`, `step()`, `render()`
+- Same algorithm across environments without modification
+```python
+import gymnasium as gym
+
+env = gym.make("CartPole-v1")
+state, info = env.reset()
+
+action = env.action_space.sample()
+state, reward, terminated, truncated, info = env.step(action)
+```
+
+:::
+
+::: {.column width="50%"}
+::: {style="text-align: center; margin-top: 40px;"}
+![](images/gym.gif){width=90%}
+:::
+:::
+
+::::
+
 ## Stable Baselines3: DQN on CartPole
 
 :::: {.columns}
 
 ::: {.column width="50%"}
 
-**Same algorithm — neural network instead of Q-table**
+**Neural network instead of Q-table**
 
-- Q-table replaced by a multilayer perceptron
-- Same TD error: $\delta = r + \gamma \cdot \max_{a'} Q(s',a') - Q(s,a)$
+- Same TD error algorithm but Q-table replaced by a multilayer perceptron
 - Two key additions: **experience replay** and **target network**
+
 ```python
 from stable_baselines3 import DQN
 import gymnasium as gym
@@ -361,11 +392,13 @@ model.learn(total_timesteps=100_000)
 
 ::: {.column width="50%"}
 
-**Same RL framework — environment is a real cognitive task**
+**RL framework but the environment is a cognitive task**
 
-- Perceptual Decision Making task — the same paradigm run in monkey and human experiments
-- Trial structure: fixation → stimulus → decision → reward
-- Trained agent behavior can be compared directly to neural recordings
+- Go/No-Go task — a cognitive neuroscience task
+- Agent sees a stimulus and must decide whether to respond or withhold
+- fixation → stimulus → decision → reward
+- Trained agent behaviour can be compared directly to neural recordings
+
 ```python
 import neurogym as ngym
 
