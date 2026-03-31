@@ -319,17 +319,13 @@ for episode in range(episodes):
 ![](images/graph4.png){width=80%}
 :::
 
-::: {style="position: absolute; bottom: 10px; left: 20px; font-size: 0.45em; color: #aaa;"}
-Frank et al. (2007) doi:10.1073/pnas.0706111104 &nbsp;|&nbsp; Samson et al. (2010) doi:10.1007/s11571-010-9109-x
-:::
-
-## Gymnasium
+## Libraries: Gymnasium
 
 :::: {.columns}
 
 ::: {.column width="50%"}
 
-**A standardized toolkit for developing and comparing RL algorithms**
+**Python library for developing and comparing RL algorithms**
 
 - Pre-built environments 
 - Same interface for every environment: `reset()`, `step()`, `render()`
@@ -337,7 +333,7 @@ Frank et al. (2007) doi:10.1073/pnas.0706111104 &nbsp;|&nbsp; Samson et al. (201
 ```python
 import gymnasium as gym
 
-env = gym.make("CartPole-v1")
+env = gym.make("LunarLander-v2")
 state, info = env.reset()
 
 action = env.action_space.sample()
@@ -354,7 +350,7 @@ state, reward, terminated, truncated, info = env.step(action)
 
 ::::
 
-## Stable Baselines3: DQN on CartPole
+## Libraries: Stable Baselines3 - DQN
 
 :::: {.columns}
 
@@ -386,15 +382,15 @@ model.learn(total_timesteps=100_000)
 
 ---
 
-## NeuroGym: RL on Cognitive Tasks
+## Libraries: NeuroGym - RL on Cognitive Tasks
 
 :::: {.columns}
 
 ::: {.column width="50%"}
 
-**RL framework but the environment is a cognitive task**
+**RL framework in cognitive tasks**
 
-- Go/No-Go task — a cognitive neuroscience task
+- Example: Go/No-Go task — a cognitive neuroscience task
 - Agent sees a stimulus and must decide whether to respond or withhold
 - fixation → stimulus → decision → reward
 - Trained agent behaviour can be compared directly to neural recordings
@@ -417,9 +413,6 @@ fig = ngym.utils.plot_env(env, num_trials=3)
 
 ::::
 
-::: {style="position: absolute; bottom: 10px; left: 20px; font-size: 0.45em; color: #aaa;"}
-Molano-Mazon et al. (2022) doi:10.7554/eLife.71104 &nbsp;|&nbsp; Mnih et al. (2015) doi:10.1038/nature14236
-:::
 
 ## {data-background-color="#1a3a4a"}
 
