@@ -89,6 +89,26 @@ title-slide-attributes:
 </div>
 ---
 
+## {data-background-image="images/info1.jpg" data-background-size="contain"}
+
+::: {.notes}
+Need to learn without labeled data — In many real-world problems, there is no correct answer provided. The agent must learn from rewards or penalties instead of explicit supervision.
+Need to handle sequential decision-making — Actions influence future states and future rewards. Decisions cannot be evaluated in isolation.
+Need to operate in unknown or partially known environments — The agent does not have access to full transition dynamics. Learning must occur through interaction with the environment.
+Need to balance exploration vs exploitation — The agent must try new actions (exploration) while using known good actions (exploitation). This trade-off is central to effective learning.
+:::
+
+## {data-background-image="images/info2.jpg" data-background-size="contain"}
+
+::: {.notes}
+Provides a framework for learning through interaction — Closely models how humans and animals learn from consequences. Connects with principles from psychology and neuroscience.
+Enables autonomous decision-making systems — Systems can act, learn, and improve without explicit programming. Applicable to robotics, recommendation systems, and control systems.
+Introduces foundational concepts in AI — Value functions (how good a state/action is), Policies (decision rules), Reward signals (objective of learning), Trial-and-error learning.
+:::
+
+
+## {data-background-image="images/applications.png" data-background-size="contain"}
+
 ## {data-background-color="#ffffff"}
 
 ::: {style="text-align: center; padding-top: 50px;"}
@@ -172,25 +192,6 @@ Discount rate parameter: $0 \leq \gamma \leq 1$
 
 ---
 
-## {data-background-image="images/info1.jpg" data-background-size="contain"}
-
-::: {.notes}
-Need to learn without labeled data — In many real-world problems, there is no correct answer provided. The agent must learn from rewards or penalties instead of explicit supervision.
-Need to handle sequential decision-making — Actions influence future states and future rewards. Decisions cannot be evaluated in isolation.
-Need to operate in unknown or partially known environments — The agent does not have access to full transition dynamics. Learning must occur through interaction with the environment.
-Need to balance exploration vs exploitation — The agent must try new actions (exploration) while using known good actions (exploitation). This trade-off is central to effective learning.
-:::
-
-## {data-background-image="images/info2.jpg" data-background-size="contain"}
-
-::: {.notes}
-Provides a framework for learning through interaction — Closely models how humans and animals learn from consequences. Connects with principles from psychology and neuroscience.
-Enables autonomous decision-making systems — Systems can act, learn, and improve without explicit programming. Applicable to robotics, recommendation systems, and control systems.
-Introduces foundational concepts in AI — Value functions (how good a state/action is), Policies (decision rules), Reward signals (objective of learning), Trial-and-error learning.
-:::
-
-
-## {data-background-image="images/applications.png" data-background-size="contain"}
 
 ## Tutorial: Maze Setup
 ```{.python code-line-numbers="|9-16|4-7"}
