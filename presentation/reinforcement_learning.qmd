@@ -437,8 +437,8 @@ state, reward, terminated, truncated, info = env.step(action)
 
 **Neural network instead of Q-table**
 
-- Same TD error algorithm but Q-table replaced by a multilayer perceptron
-- Two key additions: **experience replay** and **target network**
+- Same TD error algorithm but Q-table replaced by a neural network
+- Allows the same algorithm to scale to environments with continuous or very large state spaces
 
 ```python
 from stable_baselines3 import DQN
@@ -471,7 +471,6 @@ model.learn(total_timesteps=100_000)
 
 - Example: Go/No-Go task — a cognitive neuroscience task
 - Agent sees a stimulus and must decide whether to respond or withhold
-- fixation → stimulus → decision → reward
 - Trained agent behaviour can be compared directly to neural recordings
 
 ```python
