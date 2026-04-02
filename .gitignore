@@ -16,5 +16,3 @@ Thumbs.db
 # environment variables
 .env
 
-# Quarto build output
-reinforcement_learning_files/
