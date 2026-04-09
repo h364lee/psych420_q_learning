@@ -124,4 +124,8 @@ Tables can also be generated using R chunks, as shown in @tbl-simple example.
 knitr::kable(head(mtcars)[,1:4])
 ```
 
+# Caleb Part
+- Q learning in computational psychiatry
+- Example: D1/D2 receptors
+
 # References {-}
