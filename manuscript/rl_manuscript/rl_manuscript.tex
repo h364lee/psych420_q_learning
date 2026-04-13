@@ -1,4 +1,5 @@
 % Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
 \PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
@@ -6,21 +7,22 @@
 \documentclass[
   authoryear,
   preprint]{elsarticle}
-
+\usepackage{xcolor}
 \usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{5}
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
 \else % if luatex or xetex
-  \usepackage{unicode-math}
+  \usepackage{unicode-math} % this also loads fontspec
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
 \usepackage{lmodern}
-\ifPDFTeX\else  
-    % xetex/luatex font selection
+\ifPDFTeX\else
+  % xetex/luatex font selection
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -38,9 +40,6 @@
 }{% if KOMA class
   \KOMAoptions{parskip=half}}
 \makeatother
-\usepackage{xcolor}
-\setlength{\emergencystretch}{3em} % prevent overfull lines
-\setcounter{secnumdepth}{5}
 % Make \paragraph and \subparagraph free-standing
 \makeatletter
 \ifx\paragraph\undefined\else
@@ -65,49 +64,8 @@
 \fi
 \makeatother
 
-\usepackage{color}
-\usepackage{fancyvrb}
-\newcommand{\VerbBar}{|}
-\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
-\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
-% Add ',fontsize=\small' for more characters per line
-\usepackage{framed}
-\definecolor{shadecolor}{RGB}{241,243,245}
-\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
-\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
-\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
-\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
-\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
-\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
-\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
-\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
-\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
-\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
-\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
-\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
-\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
-\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
-\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
-\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
-\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
-\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
-\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
-\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
-\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
-\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
-\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
-\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
-\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
-\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
-\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
-\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
-\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
-\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
-\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
-\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
 
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
@@ -132,6 +90,22 @@
 % Set default figure placement to htbp
 \def\fps@figure{htbp}
 \makeatother
+
+
+
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+\usepackage[]{natbib}
+\bibliographystyle{elsarticle-harv}
+
 
 \makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
@@ -175,16 +149,12 @@
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
 \makeatother
 \journal{Journal Name}
-
-\usepackage[]{natbib}
-\bibliographystyle{elsarticle-harv}
 \usepackage{bookmark}
-
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\urlstyle{same} % disable monospaced font for URLs
+\urlstyle{same}
 \hypersetup{
   pdftitle={An Introduction to Reinforcement Learning},
-  pdfauthor={Caleb Lee, Catherine Cao, Arshia Mago, Ashlee King, Christina Fan; Bob Security; Cat Memes; Derek Zoolander},
+  pdfauthor={Caleb Lee, Catherine Cao, Arshia Mago, Ashlee King, Christina Fan},
   pdfkeywords={Q-learning, Reinforcement
 learning, State, Agent, Action, TD learning},
   colorlinks=true,
@@ -202,35 +172,15 @@ learning, State, Agent, Action, TD learning},
 \title{An Introduction to Reinforcement Learning}
 \author[1]{Caleb Lee, Catherine Cao, Arshia Mago, Ashlee King, Christina
 Fan%
-\corref{cor1}%
-\fnref{fn1}}
- \ead{alice@example.com} 
-\author[2]{Bob Security%
-%
-\fnref{fn2}}
- \ead{bob@example.com} 
-\author[2]{Cat Memes%
-%
-\fnref{fn3}}
- \ead{cat@example.com} 
-\author[]{Derek Zoolander%
 %
 }
- \ead{derek@example.com} 
+
 
 \affiliation[1]{organization={University of Waterloo, Department of
-Psychology},addressline={Street Address},city={City},postcode={Postal
-Code},postcodesep={}}
-\affiliation[2]{organization={Another University, Department
-Name},addressline={Street Address},city={City},postcode={Postal
-Code},postcodesep={}}
+Psychology},addressline={200 University Avenue
+West},city={Waterloo},postcode={N2L 3G1},postcodesep={}}
 
 \cortext[cor1]{Corresponding author}
-\fntext[fn1]{This is the first author footnote.}
-\fntext[fn2]{Another author footnote, this is a very long footnote and
-it should be a really long footnote. But this footnote is not yet
-sufficiently long enough to make two lines of footnote text.}
-\fntext[fn3]{Yet another author footnote.}
 
         
 \begin{abstract}
@@ -257,60 +207,32 @@ learning \sep State \sep Agent \sep Action \sep
 \end{frontmatter}
     
 
-Please make sure that your manuscript follows the guidelines in the
-Guide for Authors of the relevant journal. It is not necessary to
-typeset your manuscript in exactly the same way as an article, unless
-you are submitting to a camera-ready copy (CRC) journal.
+\section{Introduction}\label{introduction}
 
-For detailed instructions regarding the elsevier article class, see
-\url{https://www.elsevier.com/authors/policies-and-guidelines/latex-instructions}
-
-\section{Bibliography styles}\label{bibliography-styles}
-
-Here are two sample references: \citet{Feynman1963118}
-\citet{Dirac1953888}.
-
-With this template using elsevier class, natbib will be used. Three
-bibliographic style ﬁles (*.bst) are provided and their use controled by
-\texttt{cite-style} option:
+\subsection{History}\label{history}
 
 \begin{itemize}
 \tightlist
 \item
-  \texttt{citestyle:\ number} (default) will use
-  \texttt{elsarticle-num.bst} - can be used for the numbered scheme
-\item
-  \texttt{citestyle:\ numbername} will use
-  \texttt{elsarticle-num-names.bst} - can be used for numbered with new
-  options of natbib.sty
-\item
-  \texttt{citestyle:\ authoryear} will use \texttt{elsarticle-harv.bst}
-  --- can be used for author year scheme
+  Ashlee History
 \end{itemize}
 
-This \texttt{citestyle} will insert the right \texttt{.bst} and set the
-correct \texttt{classoption} for \texttt{elsarticle} document class.
+\subsection{Importance and
+Applications}\label{importance-and-applications}
 
-Using \texttt{natbiboptions} variable in YAML header, you can set more
-options for \texttt{natbib} itself . Example
+\begin{itemize}
+\tightlist
+\item
+  Arshia + some Catherine applications stuff
+\end{itemize}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{natbiboptions}\KeywordTok{:}\AttributeTok{ longnamesfirst,angle,semicolon}
-\end{Highlighting}
-\end{Shaded}
+\section{Mathematical Theory}\label{mathematical-theory}
 
-\subsection{Using CSL}\label{using-csl}
-
-If \texttt{cite-method} is set to \texttt{citeproc} in
-\texttt{elsevier\_article()}, then pandoc is used for citations instead
-of \texttt{natbib}. In this case, the \texttt{csl} option is used to
-format the references. By default, this template will provide an
-appropriate style, but alternative \texttt{csl} files are available from
-\url{https://www.zotero.org/styles?q=elsevier}. These can be downloaded
-and stored locally, or the url can be used as in the example header.
-
-\section{Equations}\label{equations}
+\begin{itemize}
+\tightlist
+\item
+  Catherine Q-Learning formula explanation
+\end{itemize}
 
 Here is an equation: \[ 
   f_{X}(x) = \left(\frac{\alpha}{\beta}\right)
@@ -321,67 +243,132 @@ Here is an equation: \[
 
 Inline equations work as well: \(\sum_{i = 2}^\infty\{\alpha_i^\beta\}\)
 
-\section{Figures and tables}\label{figures-and-tables}
-
-Figure~\ref{fig-meaningless} is generated using an R chunk.
-
-\begin{figure}
-
-\centering{
-
-\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{rl_manuscript_files/figure-pdf/fig-meaningless-1.pdf}
-
-}
-
-\caption{\label{fig-meaningless}A meaningless scatterplot}
-
-\end{figure}%
-
-\section{Tables coming from R}\label{tables-coming-from-r}
-
-Tables can also be generated using R chunks, as shown in
-Table~\ref{tbl-simple} example.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(}\FunctionTok{head}\NormalTok{(mtcars)[,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{])}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{longtable}[]{@{}lrrrr@{}}
-
-\caption{\label{tbl-simple}Caption centered above table}
-
-\tabularnewline
-
-\toprule\noalign{}
-& mpg & cyl & disp & hp \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-Mazda RX4 & 21.0 & 6 & 160 & 110 \\
-Mazda RX4 Wag & 21.0 & 6 & 160 & 110 \\
-Datsun 710 & 22.8 & 4 & 108 & 93 \\
-Hornet 4 Drive & 21.4 & 6 & 258 & 110 \\
-Hornet Sportabout & 18.7 & 8 & 360 & 175 \\
-Valiant & 18.1 & 6 & 225 & 105 \\
-
-\end{longtable}
-
-\section{Caleb Part}\label{caleb-part}
+\section{Methods}\label{methods}
 
 \begin{itemize}
 \tightlist
+\item
+  Christina and Caleb \#\# Implementation We built and implemented a
+  Q-learning algorithm within a maze environment. The environment was
+  represented as a 6 × 6 grid constructed using a NumPy array, where
+  integer values encoded state types and associated rewards.
+  Specifically, cells were defined as follows: 0 represented empty
+  traversable space, 1 represented impassable walls, 2 represented fatal
+  states (``holes'') that returned the agent to the starting position,
+  and 3 represented the goal state associated with a positive reward and
+  episode termination.
+\end{itemize}
+
+A Q-table was initialized with zeros to represent the expected value of
+each state--action pair. The learning rate (α), future discount factor
+(γ), and exploration rate (ε) were predefined and held constant
+throughout training. The agent's action space consisted of four discrete
+movements (up, down, left, right).
+
+At each step, the agent selected an action using the Epsilon-Greedy
+strategy. State transitions were determined by applying the selected
+action to the agent's current position, with resulting coordinates
+mapped onto the grid to determine the subsequent state and corresponding
+reward.
+
+Q-values were iteratively updated using the temporal difference learning
+rule based on the observed reward and the maximum expected future reward
+from the subsequent state. Training was conducted over a fixed number of
+episodes, with each episode beginning at the starting state and
+terminating upon reaching the goal or a terminal penalty state.
+
+\subsection{Neuropsychiatry Extension}\label{neuropsychiatry-extension}
+
+\begin{itemize}
+\tightlist
+\item
+  Caleb Part
 \item
   Q learning in computational psychiatry
 \item
   Example: D1/D2 receptors
 \end{itemize}
 
+\section{Results}\label{results}
+
+\subsection{Model}\label{model}
+
+After running 1000 episodes, we present evidence of the agent's learning
+process. Figure~\ref{fig-stepsep} illustrates changes in the number of
+steps the agent takes to complete one episode over the course of 500
+episodes.
+
+\begin{figure}[H]
+
+\centering{
+
+\includegraphics[width=0.85\linewidth,height=\textheight,keepaspectratio]{images/stepsep.png}
+
+}
+
+\caption{\label{fig-stepsep}Changes in Steps to Complete One Episode}
+
+\end{figure}%
+
+Figure~\ref{fig-delta} presents changes in the TD learning error (delta)
+over time across 6000 episodes.
+
+\begin{figure}[H]
+
+\centering{
+
+\includegraphics[width=0.85\linewidth,height=\textheight,keepaspectratio]{images/delta.png}
+
+}
+
+\caption{\label{fig-delta}TD Error Over Time}
+
+\end{figure}%
+
+Figure~\ref{fig-heatmap} is a Q-value heatmap showing the Q values of
+the best action to take in a given state (i.e.~state-action pair that
+renders the maximal Q-value), with greater Q-values of darker color.
+
+\begin{figure}[H]
+
+\centering{
+
+\includegraphics[width=0.85\linewidth,height=\textheight,keepaspectratio]{images/heatmap.png}
+
+}
+
+\caption{\label{fig-heatmap}Q-Value Heatmap}
+
+\end{figure}%
+
+Figure~\ref{fig-policy} illustrates the optimal actions to take in a
+given state, with visualizations of actions as arrows in the maze
+environment. This represents the optimal policy the agent is learning.
+
+\begin{figure}[H]
+
+\centering{
+
+\includegraphics[width=0.85\linewidth,height=\textheight,keepaspectratio]{images/policy.png}
+
+}
+
+\caption{\label{fig-policy}Optimal Learned Policy}
+
+\end{figure}%
+
+\subsection{Neuropsychiatry
+Extension}\label{neuropsychiatry-extension-1}
+
+\begin{itemize}
+\tightlist
+\item
+  Caleb
+\end{itemize}
+
 
 \renewcommand\refname{References}
-  \bibliography{bibliography.bib}
+\bibliography{bibliography.bib}
 
 
 
