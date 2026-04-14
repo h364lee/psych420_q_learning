@@ -567,11 +567,35 @@ timing and magnitude of reward outcomes (Schultz et al., 1997). This
 discovery motivated a connection to reinforcement learning algorithms,
 specifically to the temporal difference (TD) error.
 
-Schultz et al., (1997) provided the computational interpretation of
-these findings, demonstrating that the observed pattern of dopaminergic
-activity maps precisely onto the TD error signal \(\delta__t\) (see
-\textbf{?@eq-td-error}): a measure of descrepancy bewteen expected and
-predicted reward. This was not merely an analogy
+Schultz, Dayan, and Montague (1997) interpreted these findings with the
+TD algorithm, showing that the pattern of DA neuron firing matched the
+prediction error \(\delta_t\) (see \textbf{?@eq-td-error}). When the TD
+model was applied to the same conditioning task that the monkeys
+performed, the prediction error it generated corresponded precisely to
+the three observed firing patterns: a positive prediction error when
+unexpected reward occurred, no error when reward was received as
+predicted, and a negative prediction error when an expected reward was
+absent. This established dopamine as a biological implementation of the
+TD error signal, suggesting that the brain computes something equivalent
+to TD learning through phasic DA neuron firing activity.
+
+While Schultz et al.~(1997) established that phasic dopamine activity
+encodes reward prediction errors, how this signal drives learning
+through receptor-level mechanisms remained a question. Specifically, if
+D1 receptors on the direct pathway facilitate learning from positive
+outcomes and D2 receptors on the indirect pathway facilitate learning
+from negative outcomes, then manipulating dopamine levels should
+selectively affect positive and negative feedback learning in opposite
+directions. Frank, Seeberger, and O'Reilly (2004) tested this prediction
+by examining procedural learning in Parkinson's disease patients on and
+off dopamine medication, using probabilistic selection and transitive
+inference tasks. Patients off medication --- with depleted dopamine ---
+showed enhanced learning from negative feedback but were impaired at
+learning from positive outcomes, while patients on medication showed the
+reverse pattern. These results confirmed the predicted double
+dissociation, establishing that positive and negative feedback learning
+are mediated by separable dopaminergic mechanisms through D1 and D2
+receptors respectively.
 
 \subsubsection{Computational Psychiatry}\label{computational-psychiatry}
 
