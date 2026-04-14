@@ -224,48 +224,91 @@ Applications}\label{importance-and-applications}
 \begin{itemize}
 \tightlist
 \item
-  Arshia + some Catherine applications stuff \textless!-- Here are two
-  sample references: \citet{Feynman1963118} \citet{Dirac1953888}.
+  Arshia + some Catherine applications stuff
 \end{itemize}
 
-With this template using elsevier class, natbib will be used. Three
-bibliographic style ﬁles (*.bst) are provided and their use controled by
-\texttt{cite-style} option:
+\subsubsection{Applications}\label{applications}
 
-\begin{itemize}
-\tightlist
-\item
-  \texttt{citestyle:\ number} (default) will use
-  \texttt{elsarticle-num.bst} - can be used for the numbered scheme
-\item
-  \texttt{citestyle:\ numbername} will use
-  \texttt{elsarticle-num-names.bst} - can be used for numbered with new
-  options of natbib.sty
-\item
-  \texttt{citestyle:\ authoryear} will use \texttt{elsarticle-harv.bst}
-  --- can be used for author year scheme
-\end{itemize}
+Reinforcement learning has been successfully applied to a wide range of
+domains, where an agent learns to interact with an environment through
+trial and error, in order to achieve long-term goals under uncertainty.
+The agent's actions influence both immediate outcomes and future states,
+requiring decisions that account for delayed consequences and involve
+planning. At the same time, because outcomes are uncertain, the agent
+must continuously monitor the environment and adapt its behaviour
+accordingly. Over time, the agent improves its performance through
+experience, refining its decision-making strategies.
 
-This \texttt{citestyle} will insert the right \texttt{.bst} and set the
-correct \texttt{classoption} for \texttt{elsarticle} document class.
+Robotics is one of the most widely studied application domains of
+reinforcement learning, with applications spanning manufacturing,
+logistics, healthcare, space, etc. Reinforcement learning enables robots
+to learn complex sequential behaviours through interaction with their
+environment, making it particularly well-suited for tasks that involve
+uncertainty and dynamic conditions. In robotics, representations, prior
+knowledge, and approximate models, are essential components.
+Representations refer to state-action discretization, function
+approximation, and pre-structured policies, they aim to make complex
+reinforcement learning problems tractable. Prior knowledge is crucial in
+guiding the learning process and improving learning efficiency,
+including initial policies, demonstration, task structuring, and
+constraints on actions or policies. Approximate models also improve
+learning efficiency by enabling simulation and prediction of environment
+dynamics. In robotics, this allows for techniques such as mental
+rehearsal, where agents are trained in simulated environments to reduce
+real-world interaction, and learned forward models. However,
+discrepancies between simulation and the real world, referred to as the
+sim-to-real gap, might be a challenge. It could be addressed by
+improving simulator or designing policies such as randomization in
+dynamics, observations, and environmental conditions. The development of
+social robots has introduced new forms of reward mechanisms. In
+interactive reinforcement learning, robots learn from human feedback,
+which may be explicit (e.g., ratings or labels) or implicit (e.g.,
+gestures, speech, or emotional cues).
 
-Using \texttt{natbiboptions} variable in YAML header, you can set more
-options for \texttt{natbib} itself . Example
+Reinforcement learning trains self-driving cars by rewarding desired
+driving behaviors and penalizing errors, allowing agents to learn
+optimal driving policies through trial and error, and reaching the
+destination. The self-driving system is typically divided into the
+perception system and the decision-making system. The perception system
+is responsible for interpreting data from sensors such as cameras, Light
+Detection and Ranging (LIDAR), Radio Detection and Ranging (RADAR) and
+the Global Positioning System (GPS) to form a representation of the
+environment. It involves road mapping, vehicle localization, and the
+detection of static and dynamic obstacles. The decision making system
+uses these information to determine appropriate actions for the vehicle.
+It considers the current state of the vehicle, the environment, and
+constraints such as traffic regulations, and perform route planning,
+path planning, and obstacle avoidance and control.
 
-\texttt{yaml\ natbiboptions:\ longnamesfirst,angle,semicolon}
---\textgreater{}
+Recommender systems aim to predict user preferences for products and
+services, to reduce information overload. They personalize user
+experience by understanding and analyzing user behaviour, preferences,
+and interaction patterns, such as satisfaction, interests, and
+engagement . In traditional recommendation systems, collaborative
+filtering methods use patterns of user interactions to identify
+similarities between users or items, whereas content-based filtering
+relies on item features and user profiles to match users with relevant
+content. Modeling the recommendation systems as a sequential
+decision-making process can better reflect the user-system interaction.
+It is modeled as a Markov decision process (MDP), and using the
+reinforcement learning algorithm. Reinforcement learning is suited for
+the recommendation systems because it constantly updates its policy
+based on rewards, and accounts for long-term rewards. For recommendation
+systems, it learns from the user-system interaction, receive feedback as
+rewards, and maximize long-term user engagement, satisfaction, and
+revenue.
 
 \section{Mathematical Theory}\label{mathematical-theory}
 
 \subsection{Markov Decision Process}\label{markov-decision-process}
 
 The Markov Decision Process (MDP) forms the mathematical foundation of
-reinforcement learning (RL) algorithms. It provides a framework for
-modeling sequential decision-making problems in stochastic environments,
-where an agent's actions influence both immediate rewards and subsequent
-states. These systems satisfy Markov property, meaning that the state
-transition and reward depend only on the current state and action,
-regardless of the prior process.
+reinforcement learning algorithms. It provides a framework for modeling
+sequential decision-making problems in stochastic environments, where an
+agent's actions influence both immediate rewards and subsequent states.
+These systems satisfy Markov property, meaning that the state transition
+and reward depend only on the current state and action, regardless of
+the prior process.
 
 A MDP is defined by states, actions and rewards, which together describe
 the interaction between an agent and its environment. The set of all
@@ -370,10 +413,14 @@ parameter). The \(Q\)-value \(Q(S_t, A_t)\) is the current estimate of
 the value of taking action \(A\) in state \(S\). It is updated by
 incorporating the immediate reward and the discounted value of the best
 possible action in the subsequent state. This update assumes that the
-agent follows the optimal policy from the next state onward. As the
-estimates converge to the optimal values (\(Q^*\)), the optimal policy
-\(\pi^*\) can be obtained by selecting the action that maximizes this
-value: \(\pi^*(x) = \arg\max_{a} Q^*(x, a)\).
+agent follows the optimal policy from the next state onward. A Q-table
+is a tabular representation of the \(Q\)-values, it presents the
+state-action value estimates. This table is updated iteratively using
+the Q-learning update rule, until the values converge to the optimal
+action-value function \(Q^*(s, a)\). As convergence is achieved, the
+optimal policy \(\pi^*\) can be obtained by selecting the action that
+maximizes the value for any given state:
+\(\pi^*(s) = \arg\max_{a} Q^*(s, a)\).
 
 \section{Methods}\label{methods}
 
