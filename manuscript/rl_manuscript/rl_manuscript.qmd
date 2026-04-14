@@ -168,6 +168,33 @@ After running 1000 episodes, we present evidence of the agent's learning process
 ![Optimal Learned Policy](images/policy.png){#fig-policy width="85%"}
 
 ## Neuropsychiatry Extension
-- Caleb
+### Dopamine as a Prediction Error Signal
+- Schultz et al. (1997) 
+- DA neurons fire in response to positive prediction error/pause for neg
+- This maps onto TD error: biological motivation for using RL as a model for brain function
+- D1/D2 receptor mechanisms
+- Frank et al. (2004): DA medications in Parkinson's reverse Go/NoGo learning biases/comparison with predictions made with RL models
+
+### Computational Psychiatry
+- Huys et al. 2016 - review of comp. psychiatry
+- uses computational models to characterize psychiatric ocnditions mechanistically rather than symptom based
+- Theory driven vs. Data driven
+- RL parameters as biomarkers 
+- Q-learning parameters as biomarkers - individual differences in alpha values reflect real biological variation
+
+### Q-Learning in Psychitaric Research
+- Frank et al. 2007
+- Introduce their methods
+  - probabilistic selection task
+  - split alpha into a+ and a-
+  - fitting D1/D2 receptors
+  - DNA profiles for receptor variants
+  - recovering disorder profiles
+
+### Our Simulation 
+- replication of Frank et al. (2007) logic in maze environment
+- four agents with different alpha values
+- learning curves and TD error results
+- Interpretation; connect back 
 
 # References {-}
