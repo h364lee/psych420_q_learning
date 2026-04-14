@@ -547,6 +547,32 @@ Signal}\label{dopamine-as-a-prediction-error-signal}
   learning biases/comparison with predictions made with RL models
 \end{itemize}
 
+The application of reinforcement learning algorithms in the study of the
+brain emerged with advancements in electrophysiological recording
+techniques in the 1990s. These techniques included single-unit
+recordings of individual neurons in alert subjects performing
+behavioural tasks. This allowed the investigation of firing patterns in
+dopaminergic (DA) neurons in the midbrain, which had been proposed to be
+responsible for reward-driven learning. Single-unit recordings of DA
+neurons in the ventral tegmental area (VTA) and substantia nigra of
+monkeys performing classical conditioning tasks revealed a unique firing
+pattern: early in the trials, DA neurons fired phasically at reward
+delivery; after learning, they fired at the appearance of the cue that
+predicted reward, not at the reward itself; and when a predicted reward
+failed to arrive, their firing rate dropped below baseline at exactly
+the moment the reward would have occurred (Schultz et al., 1997). This
+suggested that dopaminergic neurons do not simply encode the occurrence
+of reward, but rather the descrepancy between the predicted and actual
+timing and magnitude of reward outcomes (Schultz et al., 1997). This
+discovery motivated a connection to reinforcement learning algorithms,
+specifically to the temporal difference (TD) error.
+
+Schultz et al., (1997) provided the computational interpretation of
+these findings, demonstrating that the observed pattern of dopaminergic
+activity maps precisely onto the TD error signal \(\delta__t\) (see
+\textbf{?@eq-td-error}): a measure of descrepancy bewteen expected and
+predicted reward. This was not merely an analogy
+
 \subsubsection{Computational Psychiatry}\label{computational-psychiatry}
 
 \begin{itemize}
