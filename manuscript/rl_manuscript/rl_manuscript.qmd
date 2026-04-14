@@ -108,9 +108,9 @@ A model of the environment refers to any mechanism that allows the agent to pred
 
 Q-learning is categorized as a model-free, off-policy algorithm. The primary goal of off-policy learning is to evaluate and optimize a target policy, which is the strategy intended to become optimal. Simultaneously, the agent follows a distinct, more exploratory behaviour policy to interact with the environment. The $\epsilon$-greedy policy is used in Q-learning to select an action, which balances the trade-off between exploration and exploitation. With probability of $\epsilon$, the agent explores by selecting a random action (or the non-greedy action) to improve its estimates of the optimal values. With probability $1 - \epsilon$, the agent exploits its current knowledge by choosing the greedy action, which is the action with the highest current estimated value.
 
-Q-learning is a Temporal-Difference (TD) control algorithm that directly approximates the optimal action-value function, $Q^*$. TD error, $\delta_t$, represents the discrepancy between the current estimate of $Q$-value and the updated estimate of future value from the next state:
+Q-learning is a Temporal-Difference (TD) control algorithm that directly approximates the optimal action-value function. TD error, $\delta_t$, represents the discrepancy between the current estimate of $Q$-value and the updated estimate of future value from the next state:
 $$
-\delta_t = R_{t+1} + \gamma \q(S_{t+1}, a') - q(S_t, A_t)
+\delta_t = R_{t+1} + \gamma Q(S_{t+1}, a') - Q(S_t, A_t)
 $$
 The Q-learning update rule utilizes this error to refine its estimates:
 $$
