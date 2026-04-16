@@ -253,19 +253,16 @@ reinforcement learning problems tractable. Prior knowledge is crucial in
 guiding the learning process and improving efficiency, including initial
 policies, demonstration, task structuring, and constraints on actions or
 policies. Approximate models also improve learning efficiency by
-enabling simulation and prediction of environment dynamics. In robotics,
-this allows for techniques such as mental rehearsal, where agents are
-trained in simulated environments to reduce real-world interaction, and
-learned forward models (Kober et al., 2013). However, Li (2019) states
-that discrepancies between simulation and the real world, referred to as
-the sim-to-real gap, might be a challenge. It could be addressed by
-improving the simulator or designing policies such as randomization in
-dynamics, observations, and environmental conditions (Li, 2019). In
-addition, Akalin and Loutfi (2021) explain that the development of
-social robots has introduced new forms of reward mechanisms. In
-interactive reinforcement learning, robots learn from human feedback,
-which may be explicit (e.g., ratings or labels) or implicit (e.g.,
-gestures, speech, or emotional cues).
+enabling simulation and prediction of environment dynamics (Kober et
+al., 2013). However, Li (2019) states that discrepancies between
+simulation and the real world, referred to as the sim-to-real gap, might
+be a challenge. It could be addressed by improving the simulator or
+designing policies such as randomization in dynamics, observations, and
+environmental conditions (Li, 2019). In addition, Akalin and Loutfi
+(2021) explain that the development of social robots has introduced new
+forms of reward mechanisms. In interactive reinforcement learning,
+robots learn from human feedback, which may be explicit (e.g., ratings
+or labels) or implicit (e.g., gestures, speech, or emotional cues).
 
 Reinforcement learning enables self-driving cars to learn optimal
 driving policies by rewarding desired driving behaviors and penalizing
@@ -294,138 +291,148 @@ user interactions to identify similarities between users or items,
 whereas content-based filtering relies on item features and user
 profiles to match users with relevant content. Modeling the
 recommendation systems as a sequential decision-making process can
-better reflect the user-system interaction. It is modeled as a Markov
-decision process (MDP) and uses reinforcement learning algorithms.
-Reinforcement learning is suited for recommendation systems because it
-constantly updates its policy based on rewards and accounts for
-long-term rewards. For recommendation systems, it learns from the
-user-system interaction, receives feedback as rewards, and maximizes
-long-term user engagement, satisfaction, and revenue (Afsar et al.,
-2023).
+better reflect the user-system interaction (Afsar et al., 2023). It is
+modeled as a Markov decision process (MDP) and uses reinforcement
+learning algorithms. Reinforcement learning is suited for recommendation
+systems because it constantly updates its policy based on rewards and
+accounts for long-term rewards. For recommendation systems, it learns
+from the user-system interaction, receives feedback as rewards, and
+maximizes long-term user engagement, satisfaction, and revenue (Afsar et
+al., 2023).
 
 \section{Mathematical Theory}\label{mathematical-theory}
 
 \subsection{Markov Decision Process}\label{markov-decision-process}
 
 The Markov Decision Process (MDP) forms the mathematical foundation of
-reinforcement learning algorithms. It provides a framework for modeling
-sequential decision-making problems in stochastic environments, where an
-agent's actions influence both immediate rewards and subsequent states.
-These systems satisfy Markov property, meaning that the state transition
-and reward depend only on the current state and action, regardless of
-the prior process.
+reinforcement learning algorithms (Sutton \& Barto, 2020). It provides a
+framework for modeling sequential decision-making problems in stochastic
+environments (White \& White, 1989), where an agent's actions influence
+both immediate rewards and subsequent states. These systems satisfy the
+Markov property, meaning that the state transition and reward depend
+only on the current state and action, regardless of the prior process
+(Sutton \& Barto, 2020).
 
-A MDP is defined by states, actions and rewards, which together describe
-the interaction between an agent and its environment. The set of all
-possible states is denoted by \(\mathcal{S}\), where each state \(S_t\)
-represents specific coordinates or condition of the environment at time
-step t. The agent observes the current state \(S_t\) and selects an
-action \(A_t\), where \(\mathcal{A}(s)\) denotes the set of available
-actions in that state.
+According to Sutton and Barto (2020), a MDP is defined by states,
+actions and rewards, which together describe the interaction between an
+agent and its environment. The set of all possible states is denoted by
+\(\mathcal{S}\), where each state \(S_t\) represents specific
+coordinates or conditions of the environment at time step \(t\). The
+agent observes the current state \(S_t\) and selects an action \(A_t\),
+where \(\mathcal{A}(s)\) denotes the set of available actions in that
+state (Sutton \& Barto, 2020).
 
 After taking action \(A_t\), the agent transitions to a new state
-\(S_{t+1}\). The state transition probability is the likelihood of
-transitioning to a subsequent state \(s'\) given the current
-state-action pair \((s, a)\): \[
+\(S_{t+1}\) based on the state transition probability, which represents
+the likelihood of transitioning to a subsequent state \(S'\) given the
+current state-action pair (Sutton \& Barto, 2020): \[
 P(S' \mid s, a) = \Pr(S_{t+1} = S' \mid S_t = s, A_t = a)
 \] Simultaneously, the agent receives an expected immediate reward
 \(R(s, a)\), which is defined as the expected reward received after
-taking action \(A\) in state \(S\): \[
+taking action \(A_t\) in state \(S_t\) (Sutton \& Barto, 2020): \[
 R(s,a) = \mathbb{E}\left[ R_{t+1} \mid S_t = s, A_t = a \right]
 \]
 
 \subsection{Policy and Value Function}\label{policy-and-value-function}
 
-A policy, denoted as \(\pi\), specifies agent's behaviour by defining
-how actions are selected in each state,
+A policy, denoted as \(\pi\), specifies the agent's behaviour by
+defining how actions are selected in each state, and
 \(\pi(a \mid s) = \Pr(A_t = a \mid S_t = s)\) represents the probability
-that the agent selects action \(a\) when in state \(s\).The state-value
-function, \(v_\pi(s)\), represents the expected cumulative reward
-received when the agent starts in state s and follows policy \(\pi\). It
-is defined as: \[
+that the agent selects action \(a\) when in state \(s\) (Sutton \&
+Barto, 2020). The state-value function, \(v_\pi(s)\), defines the
+expected cumulative reward received when the agent starts in state \(s\)
+and follows policy \(\pi\) (Sutton \& Barto, 2020). It is defined as :
+\[
 v_\pi(s) = \mathbb{E}_\pi \left[ \sum_{k=0}^{\infty} \gamma^k R_{t+k+1} \,\middle|\, S_t = s \right]
-\] where \(\gamma \in [0, 1]\) is the discount factor, which balances
-immediate reward and the long-term reward. A smaller γ gives more weight
-to immediate rewards, while a γ closer to 1 gives more weight to
-long-term rewards.
+\] where \(\gamma \in [0, 1]\) is the discount factor, and balances
+immediate reward and the long-term reward. A smaller \(\gamma\) gives
+more weight to immediate rewards, while a \(\gamma\) closer to 1 gives
+more weight to long-term rewards.
 
 To evaluate the value of specific actions taken in a state, we use the
-action-value function (or Q-function), \(q_\pi(s,a)\). This function
-measures the expected cumulative reward when the agent starts in state
-\(s\), takes action \(a\), and follows policy \(\pi\): \[
+action-value function (or Q-function), \(q_\pi(s,a)\) (Sutton \& Barto,
+2020). This function measures the expected cumulative reward when the
+agent starts in state \(s\), takes action \(a\), and follows policy
+\(\pi\): \[
 q_\pi(s,a) = \mathbb{E}_\pi \left[ \sum_{k=0}^{\infty} \gamma^k R_{t+k+1} \,\middle|\, S_t = s, A_t = a \right]
 \]
 
 \subsection{Bellman Equation}\label{bellman-equation}
 
-The Bellman equation for \(v_\pi\) shows a recursive relationship
-between the value of a state and the values of subsequent states. It
-describes the value of a state as the sum of the expected immediate
-reward and the discounted value of subsequent states. For any policy
-\(\pi\), the state-value function satisfies: \[
+According to Sutton and Barto (2020), the Bellman equation for \(v_\pi\)
+shows a recursive relationship between the value of a state and the
+values of subsequent states. It describes the value of a state as the
+sum of the expected immediate reward and the discounted value of
+subsequent states. For any policy \(\pi\), the state-value function
+satisfies: \[
 v_\pi(s) = \sum_a \pi(a \mid s) \sum_{s',r} p(s',r \mid s,a)\left[ r + \gamma v_\pi(s') \right]
-\]
-
-The Bellman optimality equation can be expressed without reference to a
-specific policy \(\pi\), instead selecting the best possible action. The
-Bellman optimality equation for the optimal state-value function is: \[
+\] The Bellman optimality equation can be expressed without reference to
+a specific policy \(\pi\), instead selecting the best possible action
+(Sutton \& Barto, 2020). The Bellman optimality equation for the optimal
+state-value function is: \[
 v^*(s) = \max_{a \in \mathcal{A}(s)} \sum_{s',r} p(s',r \mid s,a)\left[ r + \gamma v^*(s') \right]
 \] It states that the optimal value of a state is the maximum expected
-total reward achievable by choosing the best action, and assuming
-optimal behaviour in subsequent states. The Bellman optimality equation
-for the optimal action-value function states the optimal value of a
-action-state pair: \[
+total reward achievable by choosing the best action and assuming optimal
+behaviour in subsequent states. The Bellman optimality equation for the
+optimal action-value function states the optimal value of a state-action
+pair: \[
 q^*(s,a) = \sum_{s',r} p(s',r \mid s,a)\left[ r + \gamma \max_{a'} q^*(s',a') \right]
 \] It represents the maximum expected total reward obtained by taking
 action \(a\) in state \(s\), followed by optimal behaviour thereafter.
-It forms the foundation for Q-learning algorithm.
+It forms the foundation for the Q-learning algorithm (Sutton \& Barto,
+2020).
 
 \subsection{Q-Learning}\label{q-learning}
 
-A model of the environment refers to any mechanism that allows the agent
-to predict the outcome of its actions. Reinforcement learning methods
-can be categorized into model-based and model-free methods, depending on
-whether the agent has access to a model of the environment. Model-based
-agents utilize planning, which is a computational process that uses a
-model to improve a policy. The agent uses its model to generate
-simulated experience and evaluate future trajectories. In contrast,
-model-free agents learn directly from real experience by interacting
-with the environment, executing actions and observing outcomes.
+Sutton and Barto (2020) explain that the model of the environment refers
+to any mechanism that allows the agent to predict the outcome of its
+actions. Reinforcement learning methods can be categorized as
+model-based and model-free, depending on whether the agent has access to
+an environment model. Model-based agents utilize planning, which is a
+computational process that uses a model to improve a policy. The agent
+uses its model to generate simulated experience and evaluate future
+trajectories. In contrast, model-free agents learn directly from real
+experience by interacting with the environment, executing actions and
+observing outcomes (Sutton \& Barto, 2020).
 
-Q-learning is categorized as a model-free, off-policy algorithm. The
-primary goal of off-policy learning is to evaluate and optimize a target
-policy, which is the strategy intended to become optimal.
-Simultaneously, the agent follows a distinct, more exploratory behaviour
-policy to interact with the environment. The \(\epsilon\)-greedy policy
-is used in Q-learning to select an action, which balances the trade-off
-between exploration and exploitation. With probability of \(\epsilon\),
-the agent explores by selecting a random action (or the non-greedy
-action) to improve its estimates of the optimal values. With probability
-\(1 - \epsilon\), the agent exploits its current knowledge by choosing
-the greedy action, which is the action with the highest current
-estimated value.
+According to Sutton and Barto (2020), Q-learning is classified as a
+model-free, off-policy algorithm. The primary goal of off-policy
+learning is to evaluate and optimize a target policy, which is intended
+to be optimal. Simultaneously, the agent follows a distinct, more
+exploratory behaviour policy to interact with the environment. The
+\(\epsilon\)-greedy policy is used in Q-learning to select an action,
+which balances the trade-off between exploration and exploitation
+(Sutton \& Barto, 2020). With a probability of \(\epsilon\), the agent
+explores by selecting a random (non-greedy) action to improve its
+estimates of the optimal values. With a probability \(1 - \epsilon\),
+the agent exploits its current knowledge by choosing the greedy action,
+which is the action with the highest current estimated value (Sutton \&
+Barto, 2020).
 
 Q-learning is a Temporal-Difference (TD) control algorithm that directly
-approximates the optimal action-value function. TD error, \(\delta_t\),
-represents the discrepancy between the current estimate of \(Q\)-value
-and the updated estimate of future value from the next state: \[
+approximates the optimal action-value function (Sutton \& Barto, 2020).
+TD error, \(\delta_t\), represents the discrepancy between the current
+estimate of Q-value and the updated estimate of future value from the
+next state (Sutton \& Barto, 2020): \[
 \delta_t = R_{t+1} + \gamma Q(S_{t+1}, a') - Q(S_t, A_t)
-\] The Q-learning update rule utilizes this error to refine its
-estimates: \[
+\] According to Sutton and Barto (2020) and Watkins and Dayan (1992),
+the Q-learning update rule utilizes this error to improve its estimates:
+\[
 Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha \left[ R_{t+1} + \gamma \max_a Q(S_{t+1}, a) - Q(S_t, A_t) \right]
 \] where \(\alpha \in [0, 1]\) is the learning rate (or step-size
-parameter). The \(Q\)-value \(Q(S_t, A_t)\) is the current estimate of
-the value of taking action \(A\) in state \(S\). It is updated by
+parameter). The Q-value \(Q(S_t, A_t)\) is the current estimate of the
+value of taking action \(A_t\) in state \(S_t\). It is updated by
 incorporating the immediate reward and the discounted value of the best
 possible action in the subsequent state. This update assumes that the
-agent follows the optimal policy from the next state onward. A Q-table
-is a tabular representation of the \(Q\)-values, it presents the
-state-action value estimates. This table is updated iteratively using
+agent follows the optimal policy from the next state onward (Sutton \&
+Barto, 2020; Watkins \& Dayan, 1992). A Q-table is a tabular
+representation of the Q-values, which presents the state-action value
+estimates (Jang et al., 2019). This table is updated iteratively using
 the Q-learning update rule, until the values converge to the optimal
-action-value function \(Q^*(s, a)\). As convergence is achieved, the
+action-value function \(Q^*(s, a)\). Once convergence is achieved, the
 optimal policy \(\pi^*\) can be obtained by selecting the action that
 maximizes the value for any given state:
-\(\pi^*(s) = \arg\max_{a} Q^*(s, a)\).
+\(\pi^*(s) = \arg\max_{a} Q^*(s, a)\) (Sutton \& Barto, 2020).
 
 \section{Methods}\label{methods}
 
@@ -670,8 +677,50 @@ Research}\label{q-learning-in-psychitaric-research}
   Interpretation; connect back
 \end{itemize}
 
+\section*{References}\label{references}
+\addcontentsline{toc}{section}{References}
 
-\renewcommand\refname{References}
+Afsar, M. M., Crump, T., \& Far, B. (2023). Reinforcement Learning based
+Recommender Systems: A Survey. \emph{ACM Computing Surveys}, 55(7),
+Article 145. https://doi.org/10.1145/3543846
+
+Akalin, N., \& Loutfi, A. (2021). Reinforcement Learning Approaches in
+Social Robotics. \emph{Sensors (Basel, Switzerland)}, 21(4), 1292.
+https://doi.org/10.3390/s21041292
+
+Badue, C., Guidolini, R., Carneiro, R. V., Azevedo, P., Cardoso, V. B.,
+Forechi, A., Jesus, L., Berriel, R., Paixão, T. M., Mutz, F., de Paula
+Veronese, L., Oliveira-Santos, T., \& De Souza, A. F. (2021).
+Self-driving cars: A survey. \emph{Expert Systems with Applications},
+165, Article 113816. https://doi.org/10.1016/j.eswa.2020.113816
+
+Jang, B., Kim, M., Harerimana, G., \& Kim, J. W. (2019). Q-Learning
+Algorithms: A Comprehensive Classification and Applications. \emph{IEEE
+Access}, 7, 133653--133667. https://doi.org/10.1109/ACCESS.2019.2941229
+
+Kober, J., Bagnell, J. A., \& Peters, J. (2013). Reinforcement learning
+in robotics: A survey. \emph{The International Journal of Robotics
+Research}, 32(11), 1238--1274. https://doi.org/10.1177/0278364913495721
+
+Li, Y. (2019). \emph{Reinforcement Learning Applications}.
+https://doi.org/10.48550/arxiv.1908.06973
+
+Sivamayil, K., Rajasekar, E., Aljafari, B., Nikolovski, S.,
+Vairavasundaram, S., \& Vairavasundaram, I. (2023). A Systematic Study
+on Reinforcement Learning Based Applications. \emph{Energies (Basel)},
+16(3), 1512. https://doi.org/10.3390/en16031512
+
+Sutton, R. S., \& Barto, A. (2020). \emph{Reinforcement learning: An
+introduction} (Second edition). The MIT Press.
+
+Watkins, C. J. C. H., \& Dayan, P. (1992). Q-learning. \emph{Machine
+Learning}, 8(3--4), 279--292. https://doi.org/10.1007/BF00992698
+
+White, C. C., \& White, D. J. (1989). {[}Rev.~of Markov decision
+processes{]}. \emph{European Journal of Operational Research}, 39(1),
+1--16. https://doi.org/10.1016/0377-2217(89)90348-2
+
+
 \bibliography{bibliography.bib}
 
 
