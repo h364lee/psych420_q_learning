@@ -66,8 +66,8 @@ Furthermore, reinforcement learning has advanced quickly with the development of
 
 At the same time, reinforcement learning continues to be studied in psychology and neuroscience, Researchers use reinforcement models to study decision-making, habits, and disorders such as addiction (Glimcher, 2011). With differences between types of learning, such as model-free and model-based learning, have also been linked to different brain systems (Daw et al., 2005).
 
-
 ## Importance and Applications
+
 ### Motivation of Reinforcement learning
 Motivation refers to the underlying rationale for adopting a system or model, and the specific problems it is designed to address. Reinforcement learning (RL) is motivated by the need to enable systems to learn from experience, adapt to dynamic environments, and make informed decisions without explicit supervision. 
 
