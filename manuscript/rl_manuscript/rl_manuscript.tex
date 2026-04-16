@@ -1,4 +1,5 @@
 % Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
 \PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
@@ -6,21 +7,22 @@
 \documentclass[
   authoryear,
   preprint]{elsarticle}
-
+\usepackage{xcolor}
 \usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{5}
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
 \else % if luatex or xetex
-  \usepackage{unicode-math}
+  \usepackage{unicode-math} % this also loads fontspec
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
 \usepackage{lmodern}
-\ifPDFTeX\else  
-    % xetex/luatex font selection
+\ifPDFTeX\else
+  % xetex/luatex font selection
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -38,9 +40,6 @@
 }{% if KOMA class
   \KOMAoptions{parskip=half}}
 \makeatother
-\usepackage{xcolor}
-\setlength{\emergencystretch}{3em} % prevent overfull lines
-\setcounter{secnumdepth}{5}
 % Make \paragraph and \subparagraph free-standing
 \makeatletter
 \ifx\paragraph\undefined\else
@@ -66,8 +65,7 @@
 \makeatother
 
 
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
@@ -92,6 +90,22 @@
 % Set default figure placement to htbp
 \def\fps@figure{htbp}
 \makeatother
+
+
+
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+\usepackage[]{natbib}
+\bibliographystyle{elsarticle-harv}
+
 
 \makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
@@ -135,13 +149,9 @@
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
 \makeatother
 \journal{Journal Name}
-
-\usepackage[]{natbib}
-\bibliographystyle{elsarticle-harv}
 \usepackage{bookmark}
-
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\urlstyle{same} % disable monospaced font for URLs
+\urlstyle{same}
 \hypersetup{
   pdftitle={An Introduction to Reinforcement Learning},
   pdfauthor={Caleb Lee, Catherine Cao, Arshia Mago, Ashlee King, Christina Fan},
@@ -233,84 +243,76 @@ punishment conditions in shaping behaviour (Skinner, 1938). At this
 time, research was categorically more descriptive and lacked specificity
 to how they processed occurred. However, their research had introduced
 the overall premise that learning is driven by feedback contingencies.
-
-\subsubsection{Early Computational and Theoretical
-Developments}\label{early-computational-and-theoretical-developments}
-
-By the mid-twentieth century, reinforcement learning became more
-formally defined with the introduction of computational models of
-decision making. Richard Bellman and fellow colleagues' work on dynamic
+\#\#\# Early Computational and Theoretical Developments By the
+mid-twentieth century, reinforcement learning became more formally
+defined with the introduction of computational models of decision
+making. Richard Bellman and fellow colleagues' work on dynamic
 programming provided various ways to describe how optimal decision can
 be made by considering future outcomes (predictions) (Bellman, 1957;
 Sutton \& Barto, 2020). His formulation of the Bellman equation offered
-a way to evaluate actions based on long-term consequences.
+a way to evaluate actions based on long-term consequences. With the
+development of the Bellman equation, Bellman and Ronald Howard found
+that the equation and dynamic programming needed to be utilized under a
+singular method, introducing the Markov Decision Process (MDP). This
+mathematical process offered a formal structure to describe situations
+where decisions are made step by step over time, while also allowing the
+application of dynamic programming such as policy iteration and value
+iteration (Sutton \& Barto, 2020; Suf, 2025). These early formulations
+and elements became underlying functions to what would later become
+reinforcement learning.Around this time, early models of machine
+learning were developing in neuroscience and psychology. The work of
+Arthur Samual, often considered one of the first examples of machine
+learning, created a checkers program that improved with experiences
+(Samual, 1959). Furthermore, shortly after the work of Donald Hebb in
+1949, when he proposed that connections between neurons strengthens when
+they are activated together (Hebb, 1949), Bruse Farley and Wesley Clark
+developed one of the earliest computational models of learning using
+artificial neural networks (Farley \& Clark, 1954) however, their shift
+away from trail-and-error learning created confusion on the distinction
+between what would later be reinforcement learning and supervised
+learning . As such in the 1960s and 1970s, research around
+trial-and-error learning became limited (Sutton \& Barto, 2020). With
+some notable exceptions such as John Andreae (1963) STeLLA system and
+coined the term ``learning from a teacher,'' and Donald Michie (1961,
+1963) use of trial-and-error system to learning tic-tac-toe (Sutton \&
+Barto, 2020).
 
-With the development of the Bellman equation, Bellman and Ronald Howard
-found that the equation and dynamic programming needed to be utilized
-under a singular method, introducing the Markov Decision Process (MDP).
-This mathematical process offered a formal structure to describe
-situations where decisions are made step by step over time, while also
-allowing the application of dynamic programming such as policy iteration
-and value iteration (Sutton \& Barto, 2020; Suf, 2025). These early
-formulations and elements became underlying functions to what would
-later become reinforcement learning.
+\subsubsection{Temporal Difference and Dopamine Prediction
+errors}\label{temporal-difference-and-dopamine-prediction-errors}
 
-Around this time, early models of machine learning were developing in
-neuroscience and psychology. The work of Arthur Samual, often considered
-one of the first examples of machine learning, created a checkers
-program that improved with experiences (Samual, 1959). Furthermore,
-shortly after the work of Donald Hebb in 1949, when he proposed that
-connections between neurons strengthens when they are activated together
-(Hebb, 1949), Bruse Farley and Wesley Clark developed one of the
-earliest computational models of learning using artificial neural
-networks (Farley \& Clark, 1954) however, their shift away from
-trail-and-error learning created confusion on the distinction between
-what would later be reinforcement learning and supervised learning . As
-such in the 1960s and 1970s, research around trial-and-error learning
-became limited (Sutton \& Barto, 2020). With some notable exceptions
-such as John Andreae (1963) STeLLA system and coined the term ``learning
-from a teacher,'' and Donald Michie (1961, 1963) use of trial-and-error
-system to learning tic-tac-toe (Sutton \& Barto, 2020).
-
-\subsubsection{Temporal Difference and
-Dopamine}\label{temporal-difference-and-dopamine}
-
-Prediction errors, defined as the difference between expected and
-unexpected outcomes, involved with the learning process became another
-major influence towards reinforcement learning. Richard Sutton developed
-of temporal difference (TD) learning, where predictions are updated
+This is defined as the difference between expected and unexpected
+outcomes, involved with the learning process became another major
+influence towards reinforcement learning. Richard Sutton developed of
+temporal difference (TD) learning, where predictions are updated
 gradually over time and allowed continuous learning (Sutton, 1988). In
 TD learning, predictions are updated step by step using small error that
 occur each moment. This allows an agent to adjust its expectations and
 subsequentially its actions, making learning more flexible. This became
 important when neuroscience research observed similar behaviours in the
-brain to how the prediction error was used in TD learning.
-
-Neuroscience studies showed that dopamine neurons respond in ways that
-closely match prediction errors (Schultz et al., 1997). For example,
-some studies showed increase activity of dopamine neurons for unexpected
-rewards, decrease activity when expected rewards were omitted (getting
-an undesired outcome) and a shift in activity as the cues for the reward
+brain to how the prediction error was used in TD learning. Neuroscience
+studies showed that dopamine neurons respond in ways that closely match
+prediction errors (Schultz et al., 1997). For example, some studies
+showed increase activity of dopamine neurons for unexpected rewards,
+decrease activity when expected rewards were omitted (getting an
+undesired outcome) and a shift in activity as the cues for the reward
 becomes more predictable (Schultz et al., 1997; Mirenowicz \& Schultz,
 1994; Bayer \& Glimcher, 2005). Further evidence in humans showed that
 the dopamine-related signals help updated the value of actions and guide
 decision-making (Pessiglione et al., 2006). Together these findings
 suggested that the in the brain may use a similar process to TD learning
-to adjust behaviour.
-
-Closely related to this was the development of actor-critic models. A
-paper from Widrow, Gupta, and Maita (1973) would publish a modified
-algorithm of Widrow and Hoff's Least-Mean-Square (LMS) to produce a new
-form of reinforcement learning principle, ``selective bootstrap
-adaptation,'' that introduced ``learning from a critic'' (Sutton \&
-Barto, 2015). In this framework, one part of the system selects actions,
-while another evaluates said actions by value estimate. The critic
-generates a prediction error signal, which is used to update both
-components over time. What makes this unique to the previous ``learning
-from a teacher,'' is that the critic does not need know the outcome to
-make these predictions, providing a similar pattern of simulation to
-dopamine neurons (Schultz et al., 1997; Bayer \& Glimcher, 2005; Sutton
-\& Barto, 2020).
+to adjust behaviour. Closely related to this was the development of
+actor-critic models. A paper from Widrow, Gupta, and Maita (1973) would
+publish a modified algorithm of Widrow and Hoff's Least-Mean-Square
+(LMS) to produce a new form of reinforcement learning principle,
+``selective bootstrap adaptation,'' that introduced ``learning from a
+critic'' (Sutton \& Barto, 2015). In this framework, one part of the
+system selects actions, while another evaluates said actions by value
+estimate. The critic generates a prediction error signal, which is used
+to update both components over time. What makes this unique to the
+previous ``learning from a teacher,'' is that the critic does not need
+know the outcome to make these predictions, providing a similar pattern
+of simulation to dopamine neurons (Schultz et al., 1997; Bayer \&
+Glimcher, 2005; Sutton \& Barto, 2020).
 
 \subsubsection{Reinforcement Learning in Machine
 Learning}\label{reinforcement-learning-in-machine-learning}
@@ -329,14 +331,12 @@ environment works, it allows an agent to learn the value of actions
 through trial-and-error. In Q-learning, the agent learns Q-values, which
 represent hoe well a particular action is in a given situation. These
 values are than updated overt time using prediction errors (Sutton,
-1997; Sutton \& Barto, 2020; Suf, 2025).
-
-Historically, Q-learning marked a shift toward more flexible and
-practical reinforcement learning method. It became widely used in the
-1990s and early 2000s is fields such as robotics and game play
-development. Robert Sutton and Andrew Barto also helped bring many of
-these ideas into a general framework for reinforcement learning (Sutton
-\& Barto, 2020; Suf, 2025).
+1997; Sutton \& Barto, 2020; Suf, 2025).Historically, Q-learning marked
+a shift toward more flexible and practical reinforcement learning
+method. It became widely used in the 1990s and early 2000s is fields
+such as robotics and game play development. Robert Sutton and Andrew
+Barto also helped bring many of these ideas into a general framework for
+reinforcement learning (Sutton \& Barto, 2020; Suf, 2025).
 
 \subsubsection{Modern expansion of Reinforcement Learning
 Algorithms}\label{modern-expansion-of-reinforcement-learning-algorithms}
@@ -355,32 +355,89 @@ by adapting to patient responses (Gottesman et al., 2019). In robotics
 and autonomous systems, reinforcement learning continues to be used to
 as a tool to improve real-work decision-making and motor control, with a
 focus on making learning more efficient and adaptable (Kober et al.,
-2013).
-
-Furthermore, reinforcement learning has advanced quickly with the
+2013). Furthermore, reinforcement learning has advanced quickly with the
 development of deep learning. Researcher at DeepMind had shown that
 reinforcement system could learn directly from complex inputs such as
 images (Mnih et al., 2015). One well-known example is AlphaGo and its
 successor AlphaGo Zero, which was able to independently learn the game
 Go and defeat the world champion Lee Sedol in 2016 (Silver et al.,
 2016). These developments built directly on earlier method of Q-learning
-and actor-critic models.
-
-At the same time, reinforcement learning continues to be studied in
-psychology and neuroscience, Researchers use reinforcement models to
-study decision-making, habits, and disorders such as addiction
-(Glimcher, 2011). With differences between types of learning, such as
-model-free and model-based learning, have also been linked to different
-brain systems (Daw et al., 2005).
+and actor-critic models. At the same time, reinforcement learning
+continues to be studied in psychology and neuroscience, Researchers use
+reinforcement models to study decision-making, habits, and disorders
+such as addiction (Glimcher, 2011). With differences between types of
+learning, such as model-free and model-based learning, have also been
+linked to different brain systems (Daw et al., 2005).
 
 \subsection{Importance and
 Applications}\label{importance-and-applications}
 
-\begin{itemize}
-\tightlist
-\item
-  Arshia + some Catherine applications stuff
-\end{itemize}
+\subsubsection{Motivation of Reinforcement
+learning}\label{motivation-of-reinforcement-learning}
+
+Motivation refers to the underlying rationale for adopting a system or
+model, and the specific problems it is designed to address.
+Reinforcement learning (RL) is motivated by the need to enable systems
+to learn from experience, adapt to dynamic environments, and make
+informed decisions without explicit supervision. One primary motivation
+for reinforcement learning is its ability to operate without labeled
+data. In many real-world scenarios, predefined answers or annotated
+datasets are unavailable, which makes supervised learning impractical.
+Instead of relying on examples, reinforcement learning enables systems
+to learn through interaction with their environment. Agents iteratively
+refine their behavior to achieve optimal outcomes by receiving rewards
+for desirable actions and penalties for its actions. Reinforcement
+learning is also essential for functioning in unknown or partially known
+environments. In such settings, an agent does not possess complete
+information about its surroundings and must learn through observation
+and experimentation. This adaptive capability makes RL particularly
+valuable in complex and uncertain domains, especially where continuous
+learning and adjustment are required. Another key motivation is the need
+to balance exploration and exploitation. An effective learning agent
+must explore new actions to discover potentially better solutions while
+exploiting known strategies that yield favorable results. Exploration
+supports long-term optimization with short-term risks, whereas
+exploitation provides immediate and reliable gains. Achieving an optimal
+balance between the two is critical for maximizing cumulative rewards.
+Finally, reinforcement learning is driven by the necessity of handling
+sequential decision-making problems. In many applications, decisions are
+interconnected, with each action influencing future states and outcomes.
+As a result, choices cannot be evaluated in isolation but must be
+considered within a broader temporal context. RL provides a structured
+framework for optimizing such long-term, interdependent decisions.
+Together, these motivations highlight the significance of reinforcement
+learning as a powerful and versatile approach for solving complex,
+real-world problems.
+
+\subsubsection{Importance of Reinforcement
+learning}\label{importance-of-reinforcement-learning}
+
+The importance of reinforcement learning lies in its ability to address
+complex decision-making problems and contribute meaningfully to
+real-world applications. It explains why RL matters as a foundational
+approach in artificial intelligence and highlights its impact across
+diverse domains. First, reinforcement learning provides a robust
+framework for learning through interaction with an environment. Unlike
+traditional machine learning methods that rely on static datasets, RL
+enables systems to learn from the consequences of their actions. This
+process closely mirrors how humans and animals adapt based on rewards
+and punishments, establishing strong conceptual links with disciplines
+such as psychology and neuroscience. Second, RL enables the development
+of autonomous decision-making systems capable of acting, learning, and
+improving without continuous human supervision. These systems adapt
+dynamically to changing conditions, making reinforcement learning
+particularly valuable in applications such as robotics, autonomous
+vehicles, and recommendation systems. Its ability to optimize
+performance in real time enhances efficiency, personalization, and
+operational effectiveness. Finally, reinforcement learning introduces
+fundamental concepts that underpin modern artificial intelligence. Core
+elements such as value functions, policies, and reward signals provide a
+structured approach to optimizing behavior over time. Through
+trial-and-error learning, RL systems iteratively refine their
+strategies, leading to continuous improvement and long-term performance
+gains. Collectively, these contributions underscore the significance of
+reinforcement learning as a transformative technology that bridges
+theoretical foundations with practical, real-world innovation.
 
 \subsubsection{Applications}\label{applications}
 
@@ -591,19 +648,16 @@ maximizes the value for any given state:
 
 \section{Methods}\label{methods}
 
-\begin{itemize}
-\tightlist
-\item
-  Christina and Caleb \#\# Implementation We built and implemented a
-  Q-learning algorithm within a maze environment. The environment was
-  represented as a 6 × 6 grid constructed using a NumPy array, where
-  integer values encoded state types and associated rewards.
-  Specifically, cells were defined as follows: 0 represented empty
-  traversable space, 1 represented impassable walls, 2 represented fatal
-  states (``holes'') that returned the agent to the starting position,
-  and 3 represented the goal state associated with a positive reward and
-  episode termination.
-\end{itemize}
+\subsection{Implementation}\label{implementation}
+
+We built and implemented a Q-learning algorithm within a maze
+environment. The environment was represented as a 6 × 6 grid constructed
+using a NumPy array, where integer values encoded state types and
+associated rewards. Specifically, cells were defined as follows: 0
+represented empty traversable space, 1 represented impassable walls, 2
+represented fatal states (``holes'') that returned the agent to the
+starting position, and 3 represented the goal state associated with a
+positive reward and episode termination.
 
 A Q-table was initialized with zeros to represent the expected value of
 each state--action pair. The learning rate (α), future discount factor
@@ -960,7 +1014,7 @@ processes{]}. \emph{European Journal of Operational Research}, 39(1),
 1--16. https://doi.org/10.1016/0377-2217(89)90348-2
 
 
-  \bibliography{bibliography.bib}
+\bibliography{bibliography.bib}
 
 
 
