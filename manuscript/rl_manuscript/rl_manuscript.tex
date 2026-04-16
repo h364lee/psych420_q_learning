@@ -1,4 +1,5 @@
 % Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
 \PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
@@ -6,21 +7,22 @@
 \documentclass[
   authoryear,
   preprint]{elsarticle}
-
+\usepackage{xcolor}
 \usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{5}
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
 \else % if luatex or xetex
-  \usepackage{unicode-math}
+  \usepackage{unicode-math} % this also loads fontspec
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
 \usepackage{lmodern}
-\ifPDFTeX\else  
-    % xetex/luatex font selection
+\ifPDFTeX\else
+  % xetex/luatex font selection
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -38,9 +40,6 @@
 }{% if KOMA class
   \KOMAoptions{parskip=half}}
 \makeatother
-\usepackage{xcolor}
-\setlength{\emergencystretch}{3em} % prevent overfull lines
-\setcounter{secnumdepth}{5}
 % Make \paragraph and \subparagraph free-standing
 \makeatletter
 \ifx\paragraph\undefined\else
@@ -66,8 +65,8 @@
 \makeatother
 
 
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{longtable,booktabs,array}
+\newcounter{none} % for unnumbered tables
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
@@ -92,6 +91,22 @@
 % Set default figure placement to htbp
 \def\fps@figure{htbp}
 \makeatother
+
+
+
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+\usepackage[]{natbib}
+\bibliographystyle{elsarticle-harv}
+
 
 \makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
@@ -135,13 +150,9 @@
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
 \makeatother
 \journal{Journal Name}
-
-\usepackage[]{natbib}
-\bibliographystyle{elsarticle-harv}
 \usepackage{bookmark}
-
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\urlstyle{same} % disable monospaced font for URLs
+\urlstyle{same}
 \hypersetup{
   pdftitle={An Introduction to Reinforcement Learning},
   pdfauthor={Caleb Lee, Catherine Cao, Arshia Mago, Ashlee King, Christina Fan},
@@ -219,73 +230,78 @@ Applications}\label{importance-and-applications}
 \subsubsection{Applications}\label{applications}
 
 Reinforcement learning has been successfully applied to a wide range of
-domains, where an agent learns to interact with an environment through
-trial and error, in order to achieve long-term goals under uncertainty.
-The agent's actions influence both immediate outcomes and future states,
-requiring decisions that account for delayed consequences and involve
-planning. At the same time, because outcomes are uncertain, the agent
-must continuously monitor the environment and adapt its behaviour
-accordingly. Over time, the agent improves its performance through
-experience, refining its decision-making strategies.
+domains. Sutton and Barto (2020) explain that an agent learns to
+interact with an environment through trial and error, in order to
+achieve long-term goals under uncertainty. The agent's actions influence
+both immediate outcomes and future states, requiring decisions that
+account for delayed consequences and involve planning. At the same time,
+because outcomes are uncertain, the agent must continuously monitor the
+environment and adjust its behaviour. Over time, the agent improves its
+performance through experience, updating its decision-making strategies
+(Sutton \& Barto, 2020).
 
-Robotics is one of the most widely studied application domains of
-reinforcement learning, with applications spanning manufacturing,
-logistics, healthcare, space, etc. Reinforcement learning enables robots
-to learn complex sequential behaviours through interaction with their
-environment, making it particularly well-suited for tasks that involve
-uncertainty and dynamic conditions. In robotics, representations, prior
-knowledge, and approximate models, are essential components.
-Representations refer to state-action discretization, function
-approximation, and pre-structured policies, they aim to make complex
+Robotics is one of the most widely studied domains of reinforcement
+learning, with applications in manufacturing, logistics, healthcare, and
+space (Li, 2019). Reinforcement learning enables robots to learn complex
+sequential behaviors through interaction with their environment, making
+it well-suited for tasks that involve uncertainty and dynamic conditions
+(Li, 2019). According to Kober et al.~(2013), representations, prior
+knowledge, and approximate models are fundamental components in
+robotics. Representations refer to state-action discretization, function
+approximation, and pre-structured policies, and they aim to make complex
 reinforcement learning problems tractable. Prior knowledge is crucial in
-guiding the learning process and improving learning efficiency,
-including initial policies, demonstration, task structuring, and
-constraints on actions or policies. Approximate models also improve
-learning efficiency by enabling simulation and prediction of environment
-dynamics. In robotics, this allows for techniques such as mental
-rehearsal, where agents are trained in simulated environments to reduce
-real-world interaction, and learned forward models. However,
-discrepancies between simulation and the real world, referred to as the
-sim-to-real gap, might be a challenge. It could be addressed by
-improving simulator or designing policies such as randomization in
-dynamics, observations, and environmental conditions. The development of
+guiding the learning process and improving efficiency, including initial
+policies, demonstration, task structuring, and constraints on actions or
+policies. Approximate models also improve learning efficiency by
+enabling simulation and prediction of environment dynamics. In robotics,
+this allows for techniques such as mental rehearsal, where agents are
+trained in simulated environments to reduce real-world interaction, and
+learned forward models (Kober et al., 2013). However, Li (2019) states
+that discrepancies between simulation and the real world, referred to as
+the sim-to-real gap, might be a challenge. It could be addressed by
+improving the simulator or designing policies such as randomization in
+dynamics, observations, and environmental conditions (Li, 2019). In
+addition, Akalin and Loutfi (2021) explain that the development of
 social robots has introduced new forms of reward mechanisms. In
 interactive reinforcement learning, robots learn from human feedback,
 which may be explicit (e.g., ratings or labels) or implicit (e.g.,
 gestures, speech, or emotional cues).
 
-Reinforcement learning trains self-driving cars by rewarding desired
-driving behaviors and penalizing errors, allowing agents to learn
-optimal driving policies through trial and error, and reaching the
-destination. The self-driving system is typically divided into the
+Reinforcement learning enables self-driving cars to learn optimal
+driving policies by rewarding desired driving behaviors and penalizing
+errors, allowing agents to learn through trial and error and ultimately
+reach the destination (Sivamayil et al., 2023). According to Badue et
+al.~(2021), the self-driving system is typically divided into the
 perception system and the decision-making system. The perception system
 is responsible for interpreting data from sensors such as cameras, Light
 Detection and Ranging (LIDAR), Radio Detection and Ranging (RADAR) and
 the Global Positioning System (GPS) to form a representation of the
 environment. It involves road mapping, vehicle localization, and the
-detection of static and dynamic obstacles. The decision making system
-uses these information to determine appropriate actions for the vehicle.
+detection of static and dynamic obstacles. The decision-making system
+uses this information to determine appropriate actions for the vehicle.
 It considers the current state of the vehicle, the environment, and
-constraints such as traffic regulations, and perform route planning,
-path planning, and obstacle avoidance and control.
+constraints such as traffic regulations, and performs route planning,
+path planning, obstacle avoidance and vehicle control (Badue et al.,
+2021).
 
 Recommender systems aim to predict user preferences for products and
-services, to reduce information overload. They personalize user
-experience by understanding and analyzing user behaviour, preferences,
-and interaction patterns, such as satisfaction, interests, and
-engagement . In traditional recommendation systems, collaborative
-filtering methods use patterns of user interactions to identify
-similarities between users or items, whereas content-based filtering
-relies on item features and user profiles to match users with relevant
-content. Modeling the recommendation systems as a sequential
-decision-making process can better reflect the user-system interaction.
-It is modeled as a Markov decision process (MDP), and using the
-reinforcement learning algorithm. Reinforcement learning is suited for
-the recommendation systems because it constantly updates its policy
-based on rewards, and accounts for long-term rewards. For recommendation
-systems, it learns from the user-system interaction, receive feedback as
-rewards, and maximize long-term user engagement, satisfaction, and
-revenue.
+services, to reduce information overload (Li, 2019). They personalize
+user experience by understanding and analyzing user behaviour,
+preferences, and interaction patterns, such as satisfaction, interests,
+and engagement (Li, 2019). Afsar et al.~(2023) state that in traditional
+recommendation systems, collaborative filtering methods use patterns of
+user interactions to identify similarities between users or items,
+whereas content-based filtering relies on item features and user
+profiles to match users with relevant content. Modeling the
+recommendation systems as a sequential decision-making process can
+better reflect the user-system interaction. It is modeled as a Markov
+decision process (MDP) and uses reinforcement learning algorithms.
+Reinforcement learning is suited for recommendation systems because it
+constantly updates its policy based on rewards and accounts for
+long-term rewards. For recommendation systems, it learns from the
+user-system interaction, receives feedback as rewards, and maximizes
+long-term user engagement, satisfaction, and revenue (Afsar et al.,
+2023).
 
 \section{Mathematical Theory}\label{mathematical-theory}
 
@@ -656,7 +672,7 @@ Research}\label{q-learning-in-psychitaric-research}
 
 
 \renewcommand\refname{References}
-  \bibliography{bibliography.bib}
+\bibliography{bibliography.bib}
 
 
 
