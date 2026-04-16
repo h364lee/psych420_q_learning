@@ -195,7 +195,7 @@ A Q-table is a tabular representation of the Q-values, which presents the state-
 
 # Methods
 
-## Implementation
+## Implementation {#sec-implementation}
  We built and implemented a Q-learning algorithm within a  maze environment. The environment was represented as a 6 × 6 grid constructed using a NumPy array, where integer values encoded state types and associated rewards. Specifically, cells were defined as follows: 0 represented empty traversable space, 1 represented impassable walls, 2 represented fatal states (“holes”) that returned the agent to the starting position, and 3 represented the goal state associated with a positive reward and episode termination.
 
 A Q-table was initialized with zeros to represent the expected value of each state–action pair. The learning rate (α), future discount factor (γ), and exploration rate (ε) were predefined and held constant throughout training. The agent’s action space consisted of four discrete movements (up, down, left, right).
@@ -230,43 +230,30 @@ After running 1000 episodes, we present evidence of the agent's learning process
 
 ## Neuropsychiatry Extension
 ### Dopamine as a Prediction Error Signal
-- Schultz et al. (1997) 
-- DA neurons fire in response to positive prediction error/pause for neg
-- This maps onto TD error: biological motivation for using RL as a model for brain function
-- D1/D2 receptor mechanisms
-- Frank et al. (2004): DA medications in Parkinson's reverse Go/NoGo learning biases/comparison with predictions made with RL models
-
 The application of reinforcement learning algorithms in the study of the brain emerged with advancements in electrophysiological recording techniques in the 1990s. These techniques included single-unit recordings of individual neurons in alert subjects performing behavioural tasks. This allowed the investigation of firing patterns in dopaminergic (DA) neurons in the midbrain, which had been proposed to be responsible for reward-driven learning. Single-unit recordings of DA neurons in the ventral tegmental area (VTA) and substantia nigra of monkeys performing classical conditioning tasks revealed a unique firing pattern: early in the trials, DA neurons fired 
-phasically at reward delivery; after learning, they fired at the appearance of the cue that predicted reward, not at the reward itself; and when a predicted reward failed to arrive, their firing rate dropped below baseline at exactly the moment the reward would 
-have occurred (Schultz et al., 1997). This suggested that dopaminergic neurons do not simply encode the occurrence of reward, but rather the descrepancy between the predicted and actual timing and magnitude of reward outcomes (Schultz et al., 1997). 
+phasically at reward delivery; after learning, they fired at the appearance of the cue that predicted reward, not at the reward itself; and when a predicted reward failed to arrive, their firing rate dropped below baseline at exactly the moment the reward would have occurred (Schultz et al., 1997). This suggested that dopaminergic neurons do not simply encode the occurrence of reward, but rather the descrepancy between the predicted and actual timing and magnitude of reward outcomes (Schultz et al., 1997). 
 This discovery motivated a connection to reinforcement learning algorithms, specifically to the temporal difference (TD) error.
 
 Schultz, Dayan, and Montague (1997) interpreted these findings with the TD algorithm, showing that the pattern of DA neuron firing matched the prediction error $\delta_t$ (see @eq-td-error). When the TD model was applied to the same conditioning task that the monkeys performed, the prediction error it generated corresponded precisely to the three observed firing patterns: a positive prediction error when unexpected reward occurred, no error when reward was received as predicted, and a negative prediction error when an expected reward was absent. This established dopamine as a biological implementation of the TD error signal, suggesting that the brain computes something equivalent to TD learning through phasic DA neuron firing activity. 
 
-While Schultz et al. (1997) established that phasic dopamine activity encodes reward prediction errors, how this signal drives learning through receptor-level mechanisms remained a question. Specifically, if D1 receptors on the direct pathway facilitate learning from positive outcomes and D2 receptors on the indirect pathway facilitate learning from negative outcomes, then manipulating dopamine levels should selectively affect positive and negative feedback learning in opposite directions. Frank, Seeberger, and O'Reilly (2004) tested this prediction by examining procedural learning in Parkinson's disease patients on and off dopamine medication, using probabilistic selection and transitive inference tasks. Patients off medication — with depleted dopamine — showed enhanced learning from negative feedback but were impaired at learning from positive outcomes, while patients on medication showed the reverse pattern. These results confirmed the predicted double dissociation, establishing that positive and negative feedback learning are mediated by separable dopaminergic mechanisms through D1 and D2 receptors respectively.
+### Q-Learning in Computational Psychiatry
+The connection between dopamine and TD error established by Schultz et al. (1997) contributed to a broader research programme applying reinforcement learning models to the study of human behaviour and psychiatric conditions. Computational psychiatry is a field that uses mathematical models of cognition to characterise psychiatric conditions in terms of specific underlying mechanisms rather than symptom profiles alone (Huys et al., 2016). A key feature of this approach is fitting computational models to individual participants' trial-by-trial behavioural data to recover latent parameters that reflect identifiable biological processes, without direct measurement of neural activity. Extensions of the TD model, including Q-learning and actor-critic algorithms, have been applied within this framework to model reinforcement-based decision making in humans (Samson et al., 2010).
 
+Frank et al. (2004) provided an early example of this approach by examining procedural learning in Parkinson's disease patients on and off dopamine medication. Drawing on computational models of the basal ganglia showing that D1 receptors on the direct pathway support Go learning from positive outcomes and D2 receptors on the indirect pathway support NoGo learning from negative outcomes, they predicted that manipulating dopamine levels should selectively affect each form of learning in opposite directions. Patients off medication — with depleted dopamine — showed enhanced learning from negative feedback but were impaired at learning from positive outcomes, while patients on medication showed the reverse pattern, confirming the predicted double dissociation.
 
-### Computational Psychiatry
-- Huys et al. 2016 - review of comp. psychiatry
-- uses computational models to characterize psychiatric ocnditions mechanistically rather than symptom based
-- Theory driven vs. Data driven
-- RL parameters as biomarkers 
-- Q-learning parameters as biomarkers - individual differences in alpha values reflect real biological variation
-
-### Q-Learning in Psychitaric Research
-- Frank et al. 2007
-- Introduce their methods
-  - probabilistic selection task
-  - split alpha into a+ and a-
-  - fitting D1/D2 receptors
-  - DNA profiles for receptor variants
-  - recovering disorder profiles
+Building on this, Frank et al. (2007) asked whether naturally occurring individual differences in Go and NoGo learning in healthy participants could be similarly attributed to dopaminergic mechanisms. They fit a modified Q-learning model with separate learning rates for positive ($\alpha_G$​) and negative ($\alpha_L$​) prediction errors to behavioural data from 69 healthy participants, and showed that the recovered parameters were predicted by dopamine receptor gene variants — DARPP-32 predicted $\alpha_G$ and DRD2 predicted $\alpha_L$. This demonstrated that Q-learning learning rates recovered from behaviour reflect specific biological mechanisms, and that individual differences in reinforcement learning can be characterised computationally from behaviour alone.
 
 ### Our Simulation 
-- replication of Frank et al. (2007) logic in maze environment
-- four agents with different alpha values
-- learning curves and TD error results
-- Interpretation; connect back 
+To demonstrate how Q-learning can be applied as a computational tool in psychiatry, we extended our Q-learning maze implementation (@sec-implementation)
+the Q-learning implementation described in  was extended by 
+replacing the single learning rate $\alpha$ with two separate parameters: $\alpha^+$ 
+for positive prediction errors, corresponding to D1-mediated Go learning, and 
+$\alpha^-$ for negative prediction errors, corresponding to D2-mediated NoGo learning. 
+This modification follows the approach of Frank et al. (2007), who showed that 
+separate learning rates for positive and negative outcomes reflect distinct 
+dopaminergic receptor mechanisms. Four agent profiles were defined to represent 
+distinct dopaminergic states (@tbl-agents), each trained for 500 episodes and 
+averaged across 20 independent runs to reduce stochastic variability.
 
 
 <!-- Here are two sample references:  @Feynman1963118 @Dirac1953888.
