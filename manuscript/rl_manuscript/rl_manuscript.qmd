@@ -228,4 +228,9 @@ After running 1000 episodes, we present evidence of the agent's learning process
 
 ![Q-value heatmaps across agent profiles](images/graph4.png){#fig-qvalues width="100%"}
 
+# Acknowledgements
+
+Generative AI tools including Claude [@Claude2026], ChatGPT [@ChatGPT2026], and 
+Gemini [@Gemini2026] were used to assist with aspects of code development and writing.
+
 # References {-}
