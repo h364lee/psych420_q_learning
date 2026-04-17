@@ -1,4 +1,5 @@
 % Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
 \PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
@@ -6,21 +7,22 @@
 \documentclass[
   authoryear,
   preprint]{elsarticle}
-
+\usepackage{xcolor}
 \usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{5}
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
 \else % if luatex or xetex
-  \usepackage{unicode-math}
+  \usepackage{unicode-math} % this also loads fontspec
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
 \usepackage{lmodern}
-\ifPDFTeX\else  
-    % xetex/luatex font selection
+\ifPDFTeX\else
+  % xetex/luatex font selection
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -38,9 +40,6 @@
 }{% if KOMA class
   \KOMAoptions{parskip=half}}
 \makeatother
-\usepackage{xcolor}
-\setlength{\emergencystretch}{3em} % prevent overfull lines
-\setcounter{secnumdepth}{5}
 % Make \paragraph and \subparagraph free-standing
 \makeatletter
 \ifx\paragraph\undefined\else
@@ -66,8 +65,7 @@
 \makeatother
 
 
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
@@ -92,6 +90,22 @@
 % Set default figure placement to htbp
 \def\fps@figure{htbp}
 \makeatother
+
+
+
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+\usepackage[]{natbib}
+\bibliographystyle{elsarticle-harv}
+
 
 \makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
@@ -135,13 +149,9 @@
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
 \makeatother
 \journal{Journal Name}
-
-\usepackage[]{natbib}
-\bibliographystyle{elsarticle-harv}
 \usepackage{bookmark}
-
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\urlstyle{same} % disable monospaced font for URLs
+\urlstyle{same}
 \hypersetup{
   pdftitle={An Introduction to Reinforcement Learning},
   pdfauthor={Caleb Lee, Catherine Cao, Arshia Mago, Ashlee King, Christina Fan},
@@ -174,15 +184,17 @@ West},city={Waterloo},postcode={N2L 3G1},postcodesep={}}
 
         
 \begin{abstract}
-This is the abstract. Lorem ipsum dolor sit amet, consectetur adipiscing
-elit. Vestibulum augue turpis, dictum non malesuada a, volutpat eget
-velit. Nam placerat turpis purus, eu tristique ex tincidunt et. Mauris
-sed augue eget turpis ultrices tincidunt. Sed et mi in leo porta
-egestas. Aliquam non laoreet velit. Nunc quis ex vitae eros aliquet
-auctor nec ac libero. Duis laoreet sapien eu mi luctus, in bibendum leo
-molestie. Sed hendrerit diam diam, ac dapibus nisl volutpat vitae.
-Aliquam bibendum varius libero, eu efficitur justo rutrum at. Sed at
-tempus elit.
+Reinforcement learning is a machine learning stratgy used to train
+algorithms to make decisions in the most optimal way. This strategy
+stems from real-life decision making tendencies observed in humans and
+animals. Q-Learning is a specific type of reinforcement learning
+involving exploratory behavior to assign arbitrary values (Q-values) to
+state-action relationships in a given environment. We review the history
+and applications of reinforcement learning and Q-learning and give a
+simple tutorial on the mathematical theory behind Q-learning. We built
+and implemented a Q-learning algorithm in the form of a maze environment
+to demonstrate this algorithm at work, in addition to modifying
+Q-learning parameters that represent dopaminergic activity in the brain.
 \end{abstract}
 
 
@@ -202,33 +214,32 @@ learning \sep State \sep Agent \sep Action \sep
 \subsection{History of Reinforcement
 learning}\label{history-of-reinforcement-learning}
 
-Reinforcement learning is a framework, built for understanding how
+Reinforcement learning (RL) is a framework, built for understanding how
 automated agents optimize decision processing actions through
 interaction of their environment. The development of this process
 reflects decades of converging ideas that stem from early behavioural
 psychology research, computational theory, computational neuroscience
 and machine learning, cultivated to reflect automated learning by reward
-and predications. Over the years, reinforcement learning has evolved
-from the basis of theoretical psychology principles into a
-mathematically driven and biologically grounded paradigm. Today,
-becoming a widely renown algorithmic method used in central field to
-study brain function and training artificial intelligence
-\citep{SuttonBarto2020}.
+and predications. Over the years, RL has evolved from the basis of
+theoretical psychology principles into a mathematically driven and
+biologically grounded paradigm. Today, becoming a widely renown
+algorithmic method used in central field to study brain function and
+training artificial intelligence \citep{SuttonBarto2020}.
 
 \subsubsection{Early Foundations in
 Psychology}\label{early-foundations-in-psychology}
 
-The foundation of reinforcement learning in machine learning can be
-traced back to the early work of behavioural psychology. Behaviourist
-Edward Thordike (1911) is often accredited for his work with animal
-learning and research on learning through trial-and-error learning;
-where he observed how cats, placed in puzzle boxes show improved
-escaping performance each time they were repeated placed back into the
-box. Thorndike proposed the Law of Effect, which suggests that
-behaviours followed by feelings of satisfaction were more likely to be
-repeated \citep{Thorndike1898, SuttonBarto2020}. This principle was
-further elaborated upon by behaviorist B.F. Skinner, whose theory of
-operant conditioning emphasized a systematic role of reinforcement and
+The foundation of RL in machine learning can be traced back to the early
+work of behavioural psychology. Behaviourist Edward Thordike (1911) is
+often accredited for his work with animal learning and research on
+learning through trial-and-error learning; where he observed how cats,
+placed in puzzle boxes show improved escaping performance each time they
+were repeated placed back into the box. Thorndike proposed the Law of
+Effect, which suggests that behaviours followed by feelings of
+satisfaction were more likely to be repeated
+\citep{Thorndike1898, SuttonBarto2020}. This principle was further
+elaborated upon by behaviorist B.F. Skinner, whose theory of operant
+conditioning emphasized a systematic role of reinforcement and
 punishment conditions in shaping behaviour \citep{Skinner1938}. At this
 time, research was categorically more descriptive and lacked specificity
 to how they processed occurred. However, their research had introduced
@@ -237,14 +248,13 @@ the overall premise that learning is driven by feedback contingencies.
 \subsubsection{Early Computational and Theoretical
 Developments}\label{early-computational-and-theoretical-developments}
 
-By the mid-twentieth century, reinforcement learning became more
-formally defined with the introduction of computational models of
-decision making. Richard Bellman and fellow colleagues' work on dynamic
-programming provided various ways to describe how optimal decision can
-be made by considering future outcomes (predictions)
-\citep{Bellman1957, SuttonBarto2020}. His formulation of the Bellman
-equation offered a way to evaluate actions based on long-term
-consequences.
+By the mid-twentieth century, RL became more formally defined with the
+introduction of computational models of decision making. Richard Bellman
+and fellow colleagues' work on dynamic programming provided various ways
+to describe how optimal decision can be made by considering future
+outcomes (predictions) \citep{Bellman1957, SuttonBarto2020}. His
+formulation of the Bellman equation offered a way to evaluate actions
+based on long-term consequences.
 
 With the development of the Bellman equation, Bellman and Ronald Howard
 found that the equation and dynamic programming needed to be utilized
@@ -254,7 +264,7 @@ situations where decisions are made step by step over time, while also
 allowing the application of dynamic programming such as policy iteration
 and value iteration \citep{SuttonBarto2020, Suf2026}. These early
 formulations and elements became underlying functions to what would
-later become reinforcement learning.
+later become RL.
 
 Around this time, early models of machine learning were developing in
 neuroscience and psychology. The work of Arthur Samual, often considered
@@ -267,13 +277,12 @@ activated together \citep{Hebb1949}, Bruse Farley and Wesley Clark
 developed one of the earliest computational models of learning using
 artificial neural networks \citep{Clark1955} however, their shift away
 from trail-and-error learning created confusion on the distinction
-between what would later be reinforcement learning and supervised
-learning. As such in the 1960s and 1970s, research around
-trial-and-error learning became limited \citep{SuttonBarto2020}. With
-some notable exceptions such as John Andreae (1963) STeLLA system and
-coined the term ``learning from a teacher,'' and Donald Michie (1961,
-1963) use of trial-and-error system to learning tic-tac-toe
-\citep{SuttonBarto2020}.
+between what would later be RL and supervised learning. As such in the
+1960s and 1970s, research around trial-and-error learning became limited
+\citep{SuttonBarto2020}. With some notable exceptions such as John
+Andreae (1963) STeLLA system and coined the term ``learning from a
+teacher,'' and Donald Michie (1961, 1963) use of trial-and-error system
+to learning tic-tac-toe \citep{SuttonBarto2020}.
 
 \subsubsection{Temporal Difference and
 Dopamine}\label{temporal-difference-and-dopamine}
@@ -304,77 +313,73 @@ the brain may use a similar process to TD learning to adjust behaviour
 Closely related to this was the development of actor-critic models. A
 paper from Widrow, Gupta, and Maitra (1973) would publish a modified
 algorithm of Widrow and Hoff's Least-Mean-Square (LMS) to produce a new
-form of reinforcement learning principle, ``selective bootstrap
-adaptation,'' that introduced ``learning from a critic''
-\citep{SuttonBarto2020}. In this framework, one part of the system
-selects actions, while another evaluates said actions by value estimate.
-The critic generates a prediction error signal, which is used to update
-both components over time. What makes this unique to the previous
-``learning from a teacher,'' is that the critic does not need know the
-outcome to make these predictions, providing a similar pattern of
-simulation to dopamine neurons
+form RL principle, ``selective bootstrap adaptation,'' that introduced
+``learning from a critic'' \citep{SuttonBarto2020}. In this framework,
+one part of the system selects actions, while another evaluates said
+actions by value estimate. The critic generates a prediction error
+signal, which is used to update both components over time. What makes
+this unique to the previous ``learning from a teacher,'' is that the
+critic does not need know the outcome to make these predictions,
+providing a similar pattern of simulation to dopamine neurons
 \citep{Schultz1997, Bayer2005, SuttonBarto2020}.
 
 \subsubsection{Reinforcement Learning in Machine
 Learning}\label{reinforcement-learning-in-machine-learning}
 
-As reinforcement learning became more widely used in computer science,
-many algorithms developed that could learn directly from experience. One
-of the most significant algorithms developed was Christopher Watkins'
-Q-learning, later formalized with Peter Dayan \citep{Watkins1992}.
-Q-learning built on earlier work in dynamic programming, temporal
-difference learning, and the MDP framework, as before then, dynamic
-programming was used to find the optimal solution in MDP. However, the
-issue with this was that dynamic programming struggled with large
-pre-set search spaces to find the optimal solution. Q-learning removed
-this limitation because rather than requiring knowledge about how the
-environment works, it allows an agent to learn the value of actions
-through trial-and-error. In Q-learning, the agent learns Q-values, which
-represent how well a particular action is in a given situation. These
-values are then updated over time using prediction errors
-\citep{Sutton1988, SuttonBarto2020, guide}.
+As RL became more widely used in computer science, many algorithms
+developed that could learn directly from experience. One of the most
+significant algorithms developed was Christopher Watkins' Q-learning,
+later formalized with Peter Dayan \citep{Watkins1992}. Q-learning built
+on earlier work in dynamic programming, temporal difference learning,
+and the MDP framework, as before then, dynamic programming was used to
+find the optimal solution in MDP. However, the issue with this was that
+dynamic programming struggled with large pre-set search spaces to find
+the optimal solution. Q-learning removed this limitation because rather
+than requiring knowledge about how the environment works, it allows an
+agent to learn the value of actions through trial-and-error. In
+Q-learning, the agent learns Q-values, which represent how well a
+particular action is in a given situation. These values are then updated
+over time using prediction errors
+\citep{Sutton1988, SuttonBarto2020, Gottesman2019}.
 
 Historically, Q-learning marked a shift toward more flexible and
-practical reinforcement learning method. It became widely used in the
-1990s and early 2000s in fields such as robotics and game play
-development. Robert Sutton and Andrew Barto also helped bring many of
-these ideas into a general framework for reinforcement learning
-\citep{SuttonBarto2020, guide}.
+practical RL method. It became widely used in the 1990s and early 2000s
+in fields such as robotics and game play development. Robert Sutton and
+Andrew Barto also helped bring many of these ideas into a general
+framework for RL \citep{SuttonBarto2020, Gottesman2019}.
 
 \subsubsection{Modern expansion of Reinforcement learning
 Algorithms}\label{modern-expansion-of-reinforcement-learning-algorithms}
 
-Current Reinforcement learning research has expanded past traditional
-environments into more complex settings. One major direction involves
-the collaboration of reinforcement learning with large language models
-through reinforcement learning from human feedback (RLHF), where systems
-learn from human preferences rather than fixed rewards
-\citep{Ouyang2022}. Related work in preference-based reinforcement
-learning also allows agents to learn from comparisons and subjective
-judgements instead of explicit numerical outcomes, making learning more
-flexible \citep{Christiano2017}. Reinforcement learning is also being
-applied in healthcare, where its used to optimize treatment decisions
-over time by adapting to patient responses \citep{Gottesman2019}. In
-robotics and autonomous systems, reinforcement learning continues to be
-used to as a tool to improve real-work decision-making and motor
-control, with a focus on making learning more efficient and adaptable
-\citep{Kober2013}.
+Current RL research has expanded past traditional environments into more
+complex settings. One major direction involves the collaboration of RL
+with large language models through reinforcement learning from human
+feedback (RLHF), where systems learn from human preferences rather than
+fixed rewards \citep{Ouyang2022}. Related work in preference-based
+reinforcement learning also allows agents to learn from comparisons and
+subjective judgements instead of explicit numerical outcomes, making
+learning more flexible \citep{Christiano2017}. RL is also being applied
+in healthcare, where its used to optimize treatment decisions over time
+by adapting to patient responses \citep{Gottesman2019}. In robotics and
+autonomous systems, RL continues to be used to as a tool to improve
+real-work decision-making and motor control, with a focus on making
+learning more efficient and adaptable \citep{Kober2013}.
 
-Furthermore, reinforcement learning has advanced quickly with the
-development of deep learning. Researcher at DeepMind had shown that
-reinforcement system could learn directly from complex inputs such as
-images \citep{Mnih2015}. One well-known example is AlphaGo and its
-successor AlphaGo Zero, which was able to independently learn the game
-Go and defeat the world champion Lee Sedol in 2016 \citep{Silver2016}.
-These developments built directly on earlier method of Q-learning and
+Furthermore, RL has advanced quickly with the development of deep
+learning. Researchers at DeepMind had shown that reinforcement system
+could learn directly from complex inputs such as images
+\citep{Mnih2015}. One well-known example is AlphaGo and its successor
+AlphaGo Zero, which was able to independently learn the game Go and
+defeat the world champion Lee Sedol in 2016 \citep{Silver2016}. These
+developments built directly on earlier method of Q-learning and
 actor-critic models.
 
-At the same time, reinforcement learning continues to be studied in
-psychology and neuroscience, Researchers use reinforcement models to
-study decision-making, habits, and disorders such as addiction
-\citep{Glimcher2011}. With differences between types of learning, such
-as model-free and model-based learning, have also been linked to
-different brain systems \citep{Daw2005}.
+At the same time, RL continues to be studied in psychology and
+neuroscience, Researchers use RL models to study decision-making,
+habits, and disorders such as addiction \citep{Glimcher2011}. With
+differences between types of learning, such as model-free and
+model-based learning, have also been linked to different brain systems
+\citep{Daw2005}.
 
 \subsection{Importance and
 Applications}\label{importance-and-applications}
@@ -383,26 +388,25 @@ Applications}\label{importance-and-applications}
 learning}\label{motivation-of-reinforcement-learning}
 
 Motivation refers to the underlying rationale for adopting a system or
-model, and the specific problems it is designed to address.
-Reinforcement learning (RL) is motivated by the need to enable systems
-to learn from experience, adapt to dynamic environments, and make
-informed decisions without explicit supervision.
+model, and the specific problems it is designed to address. RL is
+motivated by the need to enable systems to learn from experience, adapt
+to dynamic environments, and make informed decisions without explicit
+supervision.
 
-One primary motivation for reinforcement learning is its ability to
-operate without labeled data. In many real-world scenarios, predefined
-answers or annotated datasets are unavailable, which makes supervised
-learning impractical. Instead of relying on examples, reinforcement
-learning enables systems to learn through interaction with their
-environment. Agents iteratively refine their behavior to achieve optimal
-outcomes by receiving rewards for desirable actions and penalties for
-its actions.
+One primary motivation for RL is its ability to operate without labeled
+data. In many real-world scenarios, predefined answers or annotated
+datasets are unavailable, which makes supervised learning impractical.
+Instead of relying on examples, RL enables systems to learn through
+interaction with their environment. Agents iteratively refine their
+behavior to achieve optimal outcomes by receiving rewards for desirable
+actions and penalties for its actions.
 
-Reinforcement learning is also essential for functioning in unknown or
-partially known environments. In such settings, an agent does not
-possess complete information about its surroundings and must learn
-through observation and experimentation. This adaptive capability makes
-RL particularly valuable in complex and uncertain domains, especially
-where continuous learning and adjustment are required.
+RL is also essential for functioning in unknown or partially known
+environments. In such settings, an agent does not possess complete
+information about its surroundings and must learn through observation
+and experimentation. This adaptive capability makes RL particularly
+valuable in complex and uncertain domains, especially where continuous
+learning and adjustment are required.
 
 Another key motivation is the need to balance exploration and
 exploitation. An effective learning agent must explore new actions to
@@ -412,106 +416,104 @@ optimization with short-term risks, whereas exploitation provides
 immediate and reliable gains. Achieving an optimal balance between the
 two is critical for maximizing cumulative rewards.
 
-Finally, reinforcement learning is driven by the necessity of handling
-sequential decision-making problems. In many applications, decisions are
+Finally, RL is driven by the necessity of handling sequential
+decision-making problems. In many applications, decisions are
 interconnected, with each action influencing future states and outcomes.
 As a result, choices cannot be evaluated in isolation but must be
 considered within a broader temporal context. RL provides a structured
 framework for optimizing such long-term, interdependent decisions.
 
-Together, these motivations highlight the significance of reinforcement
-learning as a powerful and versatile approach for solving complex,
-real-world problems.
+Together, these motivations highlight the significance of RL as a
+powerful and versatile approach for solving complex, real-world
+problems.
 
 \subsubsection{Importance of Reinforcement
 learning}\label{importance-of-reinforcement-learning}
 
-The importance of reinforcement learning lies in its ability to address
-complex decision-making problems and contribute meaningfully to
-real-world applications. It explains why RL matters as a foundational
-approach in artificial intelligence and highlights its impact across
-diverse domains.
+The importance of RL lies in its ability to address complex
+decision-making problems and contribute meaningfully to real-world
+applications. It explains why RL matters as a foundational approach in
+artificial intelligence and highlights its impact across diverse
+domains.
 
-First, reinforcement learning provides a robust framework for learning
-through interaction with an environment. Unlike traditional machine
-learning methods that rely on static datasets, RL enables systems to
-learn from the consequences of their actions. This process closely
-mirrors how humans and animals adapt based on rewards and punishments,
-establishing strong conceptual links with disciplines such as psychology
-and neuroscience.
+First, RL provides a robust framework for learning through interaction
+with an environment. Unlike traditional machine learning methods that
+rely on static datasets, RL enables systems to learn from the
+consequences of their actions. This process closely mirrors how humans
+and animals adapt based on rewards and punishments, establishing strong
+conceptual links with disciplines such as psychology and neuroscience.
 
 Second, RL enables the development of autonomous decision-making systems
 capable of acting, learning, and improving without continuous human
 supervision. These systems adapt dynamically to changing conditions,
-making reinforcement learning particularly valuable in applications such
-as robotics, autonomous vehicles, and recommendation systems. Its
-ability to optimize performance in real time enhances efficiency,
-personalization, and operational effectiveness.
+making RL particularly valuable in applications such as robotics,
+autonomous vehicles, and recommendation systems. Its ability to optimize
+performance in real time enhances efficiency, personalization, and
+operational effectiveness.
 
-Finally, reinforcement learning introduces fundamental concepts that
-underpin modern artificial intelligence. Core elements such as value
-functions, policies, and reward signals provide a structured approach to
-optimizing behavior over time. Through trial-and-error learning, RL
-systems iteratively refine their strategies, leading to continuous
-improvement and long-term performance gains.
+Finally, RL introduces fundamental concepts that underpin modern
+artificial intelligence. Core elements such as value functions,
+policies, and reward signals provide a structured approach to optimizing
+behavior over time. Through trial-and-error learning, RL systems
+iteratively refine their strategies, leading to continuous improvement
+and long-term performance gains.
 
-Collectively, these contributions underscore the significance of
-reinforcement learning as a transformative technology that bridges
-theoretical foundations with practical, real-world innovation.
+Collectively, these contributions underscore the significance of RL as a
+transformative technology that bridges theoretical foundations with
+practical, real-world innovation.
 
 \subsubsection{Applications}\label{applications}
 
-Reinforcement learning has been successfully applied to a wide range of
-domains. \citet{SuttonBarto2020} explain that an agent learns to
-interact with an environment through trial and error, in order to
-achieve long-term goals under uncertainty. The agent's actions influence
-both immediate outcomes and future states, requiring decisions that
-account for delayed consequences and involve planning. At the same time,
-because outcomes are uncertain, the agent must continuously monitor the
-environment and adjust its behaviour. Over time, the agent improves its
-performance through experience, updating its decision-making strategies
+RL has been successfully applied to a wide range of domains.
+\citet{SuttonBarto2020} explain that an agent learns to interact with an
+environment through trial and error, in order to achieve long-term goals
+under uncertainty. The agent's actions influence both immediate outcomes
+and future states, requiring decisions that account for delayed
+consequences and involve planning. At the same time, because outcomes
+are uncertain, the agent must continuously monitor the environment and
+adjust its behaviour. Over time, the agent improves its performance
+through experience, updating its decision-making strategies
 \citep{SuttonBarto2020}.
 
-Robotics is one of the most widely studied domains of reinforcement
-learning, with applications in manufacturing, logistics, healthcare, and
-space \citep{Li2019}. Reinforcement learning enables robots to learn
-complex sequential behaviors through interaction with their environment,
-making it well-suited for tasks that involve uncertainty and dynamic
-conditions \citep{Li2019}. According to \citet{Kober2013},
-representations, prior knowledge, and approximate models are fundamental
-components in robotics. Representations refer to state-action
-discretization, function approximation, and pre-structured policies, and
-they aim to make complex reinforcement learning problems tractable.
-Prior knowledge is crucial in guiding the learning process and improving
-efficiency, including initial policies, demonstration, task structuring,
-and constraints on actions or policies. Approximate models also improve
-learning efficiency by enabling simulation and prediction of environment
-dynamics \citep{Kober2013}. However, \citet{Li2019} states that
-discrepancies between simulation and the real world, referred to as the
-sim-to-real gap, might be a challenge. It could be addressed by
-improving the simulator or designing policies such as randomization in
-dynamics, observations, and environmental conditions \citep{Li2019}. In
-addition, \citet{Akalin2021} explain that the development of social
-robots has introduced new forms of reward mechanisms. In interactive
-reinforcement learning, robots learn from human feedback, which may be
-explicit (e.g., ratings or labels) or implicit (e.g., gestures, speech,
-or emotional cues).
+Robotics is one of the most widely studied domains of RL, with
+applications in manufacturing, logistics, healthcare, and space
+\citep{Li2019}. RL enables robots to learn complex sequential behaviors
+through interaction with their environment, making it well-suited for
+tasks that involve uncertainty and dynamic conditions \citep{Li2019}.
+According to \citet{Kober2013}, representations, prior knowledge, and
+approximate models are fundamental components in robotics.
+Representations refer to state-action discretization, function
+approximation, and pre-structured policies, and they aim to make complex
+RL problems tractable. Prior knowledge is crucial in guiding the
+learning process and improving efficiency, including initial policies,
+demonstration, task structuring, and constraints on actions or policies.
+Approximate models also improve learning efficiency by enabling
+simulation and prediction of environment dynamics \citep{Kober2013}.
+However, \citet{Li2019} states that discrepancies between simulation and
+the real world, referred to as the sim-to-real gap, might be a
+challenge. It could be addressed by improving the simulator or designing
+policies such as randomization in dynamics, observations, and
+environmental conditions \citep{Li2019}. In addition, \citet{Akalin2021}
+explain that the development of social robots has introduced new forms
+of reward mechanisms. In interactive RL, robots learn from human
+feedback, which may be explicit (e.g., ratings or labels) or implicit
+(e.g., gestures, speech, or emotional cues).
 
-Reinforcement learning enables self-driving cars to learn optimal
-driving policies by rewarding desired driving behaviors and penalizing
-errors, allowing agents to learn through trial and error and ultimately
-reach the destination \citep{Sivamayil2023}. According to
-\citet{Badue2021}, the self-driving system is typically divided into the
-perception system and the decision-making system. The perception system
-is responsible for interpreting data from sensors such as cameras, Light
-Detection and Ranging (LIDAR), Radio Detection and Ranging (RADAR) and
-the Global Positioning System (GPS) to form a representation of the
-environment. It involves road mapping, vehicle localization, and the
-detection of static and dynamic obstacles. The decision-making system
-uses this information to determine appropriate actions for the vehicle.
-It considers the current state of the vehicle, the environment, and
-constraints such as traffic regulations, and performs route planning,
-path planning, obstacle avoidance and vehicle control \citep{Badue2021}.
+RL enables self-driving cars to learn optimal driving policies by
+rewarding desired driving behaviors and penalizing errors, allowing
+agents to learn through trial and error and ultimately reach the
+destination \citep{Sivamayil2023}. According to \citet{Badue2021}, the
+self-driving system is typically divided into the perception system and
+the decision-making system. The perception system is responsible for
+interpreting data from sensors such as cameras, Light Detection and
+Ranging (LIDAR), Radio Detection and Ranging (RADAR) and the Global
+Positioning System (GPS) to form a representation of the environment. It
+involves road mapping, vehicle localization, and the detection of static
+and dynamic obstacles. The decision-making system uses this information
+to determine appropriate actions for the vehicle. It considers the
+current state of the vehicle, the environment, and constraints such as
+traffic regulations, and performs route planning, path planning,
+obstacle avoidance and vehicle control \citep{Badue2021}.
 
 Recommender systems aim to predict user preferences for products and
 services, to reduce information overload \citep{Li2019}. They
@@ -524,25 +526,24 @@ or items, whereas content-based filtering relies on item features and
 user profiles to match users with relevant content. Modeling the
 recommendation systems as a sequential decision-making process can
 better reflect the user-system interaction \citep{Afsar2022}. It is
-modeled as a Markov decision process (MDP) and uses reinforcement
-learning algorithms. Reinforcement learning is suited for recommendation
-systems because it constantly updates its policy based on rewards and
-accounts for long-term rewards. For recommendation systems, it learns
-from the user-system interaction, receives feedback as rewards, and
-maximizes long-term user engagement, satisfaction, and revenue
-\citep{Afsar2022}.
+modeled as a Markov decision process (MDP) and uses RL algorithms. RL is
+suited for recommendation systems because it constantly updates its
+policy based on rewards and accounts for long-term rewards. For
+recommendation systems, it learns from the user-system interaction,
+receives feedback as rewards, and maximizes long-term user engagement,
+satisfaction, and revenue \citep{Afsar2022}.
 
 \section{Mathematical Theory}\label{mathematical-theory}
 
 \subsection{Markov Decision Process}\label{markov-decision-process}
 
 The Markov Decision Process (MDP) forms the mathematical foundation of
-reinforcement learning algorithms \citep{SuttonBarto2020}. It provides a
-framework for modeling sequential decision-making problems in stochastic
-environments \citep{White1989}, where an agent's actions influence both
-immediate rewards and subsequent states. These systems satisfy the
-Markov property, meaning that the state transition and reward depend
-only on the current state and action, regardless of the prior process
+RL algorithms \citep{SuttonBarto2020}. It provides a framework for
+modeling sequential decision-making problems in stochastic environments
+\citep{White1989}, where an agent's actions influence both immediate
+rewards and subsequent states. These systems satisfy the Markov
+property, meaning that the state transition and reward depend only on
+the current state and action, regardless of the prior process
 \citep{SuttonBarto2020}.
 
 According to \citet{SuttonBarto2020}, a MDP is defined by states,
@@ -618,14 +619,14 @@ It forms the foundation for the Q-learning algorithm
 
 \citet{SuttonBarto2020} explain that the model of the environment refers
 to any mechanism that allows the agent to predict the outcome of its
-actions. Reinforcement learning methods can be categorized as
-model-based and model-free, depending on whether the agent has access to
-an environment model. Model-based agents utilize planning, which is a
-computational process that uses a model to improve a policy. The agent
-uses its model to generate simulated experience and evaluate future
-trajectories. In contrast, model-free agents learn directly from real
-experience by interacting with the environment, executing actions and
-observing outcomes \citep{SuttonBarto2020}.
+actions. RL methods can be categorized as model-based and model-free,
+depending on whether the agent has access to an environment model.
+Model-based agents utilize planning, which is a computational process
+that uses a model to improve a policy. The agent uses its model to
+generate simulated experience and evaluate future trajectories. In
+contrast, model-free agents learn directly from real experience by
+interacting with the environment, executing actions and observing
+outcomes \citep{SuttonBarto2020}.
 
 According to \citet{SuttonBarto2020}, Q-learning is classified as a
 model-free, off-policy algorithm. The primary goal of off-policy
@@ -671,25 +672,25 @@ maximizes the value for any given state:
 
 \subsubsection{Dopamine as a Prediction Error Signal}\label{sec-datd}
 
-The application of reinforcement learning algorithms in the study of the
-brain emerged with advancements in electrophysiological recording
-techniques in the 1990s. These techniques included single-unit
-recordings of individual neurons in alert subjects performing
-behavioural tasks. This allowed the investigation of firing patterns in
-dopaminergic (DA) neurons in the midbrain, which had been proposed to be
-responsible for reward-driven learning. Single-unit recordings of DA
-neurons in the ventral tegmental area (VTA) and substantia nigra of
-monkeys performing classical conditioning tasks revealed a unique firing
-pattern: early in the trials, DA neurons fired phasically at reward
-delivery; after learning, they fired at the appearance of the cue that
-predicted reward, not at the reward itself; and when a predicted reward
-failed to arrive, their firing rate dropped below baseline at exactly
-the moment the reward would have occurred \citep{Schultz1997}. This
-suggested that dopaminergic neurons do not simply encode the occurrence
-of reward, but rather the discrepancy between the predicted and actual
-timing and magnitude of reward outcomes \citep{Schultz1997}. This
-discovery motivated a connection to reinforcement learning algorithms,
-specifically to the temporal difference (TD) error.
+The application of RL algorithms in the study of the brain emerged with
+advancements in electrophysiological recording techniques in the 1990s.
+These techniques included single-unit recordings of individual neurons
+in alert subjects performing behavioural tasks. This allowed the
+investigation of firing patterns in dopaminergic (DA) neurons in the
+midbrain, which had been proposed to be responsible for reward-driven
+learning. Single-unit recordings of DA neurons in the ventral tegmental
+area (VTA) and substantia nigra of monkeys performing classical
+conditioning tasks revealed a unique firing pattern: early in the
+trials, DA neurons fired phasically at reward delivery; after learning,
+they fired at the appearance of the cue that predicted reward, not at
+the reward itself; and when a predicted reward failed to arrive, their
+firing rate dropped below baseline at exactly the moment the reward
+would have occurred \citep{Schultz1997}. This suggested that
+dopaminergic neurons do not simply encode the occurrence of reward, but
+rather the discrepancy between the predicted and actual timing and
+magnitude of reward outcomes \citep{Schultz1997}. This discovery
+motivated a connection to RL algorithms, specifically to the temporal
+difference (TD) error.
 
 Schultz, Dayan, and Montague (1997) interpreted these findings with the
 TD algorithm, showing that the pattern of DA neuron firing matched the
@@ -707,12 +708,12 @@ to TD learning through phasic DA neuron firing activity.
 Psychiatry}\label{sec-compsych}
 
 The connection between dopamine and TD error established by
-\citet{Schultz1997} contributed to a broader research programme applying
-reinforcement learning models to the study of human behaviour and
-psychiatric conditions. Computational psychiatry is a field that uses
-mathematical models of cognition to characterise psychiatric conditions
-in terms of specific underlying mechanisms rather than symptom profiles
-alone \citep{Huys2016}. A key feature of this approach is fitting
+\citet{Schultz1997} contributed to a broader research program applying
+RL models to the study of human behaviour and psychiatric conditions.
+Computational psychiatry is a field that uses mathematical models of
+cognition to characterise psychiatric conditions in terms of specific
+underlying mechanisms rather than symptom profiles alone
+\citep{Huys2016}. A key feature of this approach is fitting
 computational models to individual participants' trial-by-trial
 behavioural data to recover latent parameters that reflect identifiable
 biological processes, without direct measurement of neural activity.
@@ -743,8 +744,8 @@ the recovered parameters were predicted by dopamine receptor gene
 variants --- DARPP-32 predicted \(\alpha_{positive}\) and DRD2 predicted
 \(\alpha_{negative}\). This demonstrated that Q-learning learning rates
 recovered from behaviour reflect specific biological mechanisms, and
-that individual differences in reinforcement learning can be
-characterized computationally from behaviour alone.
+that individual differences in RL can be characterized computationally
+from behaviour alone.
 
 \section{Methods}\label{methods}
 
@@ -760,10 +761,10 @@ starting position, and 3 represented the goal state associated with a
 positive reward and episode termination.
 
 A Q-table was initialized with zeros to represent the expected value of
-each state--action pair. The learning rate (α), future discount factor
-(γ), and exploration rate (ε) were predefined and held constant
-throughout training. The agent's action space consisted of four discrete
-movements (up, down, left, right).
+each state--action pair. The learning rate (\(\alpha\)), future discount
+factor (\(\gamma\)), and exploration rate (\(\epsilon\)) were predefined
+and held constant throughout training. The agent's action space
+consisted of four discrete movements (up, down, left, right).
 
 At each step, the agent selected an action using the Epsilon-Greedy
 strategy. State transitions were determined by applying the selected
@@ -927,7 +928,7 @@ policy acquired.
 
 
 \renewcommand\refname{References}
-  \bibliography{bibliography.bib}
+\bibliography{bibliography.bib}
 
 
 
